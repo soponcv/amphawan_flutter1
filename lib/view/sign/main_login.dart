@@ -1,11 +1,11 @@
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
+import 'package:amphawan/view/register/main_register.dart';
 import 'package:amphawan/view/sign/signInPlatform/signin_facebook.dart';
 import 'package:amphawan/view/sign/signInPlatform/signin_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_line_sdk/flutter_line_sdk.dart';
 
 class MainLogin extends StatefulWidget {
   @override
@@ -91,7 +91,12 @@ class _MainLoginState extends State<MainLogin> {
                   ),
                 ),
                 FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MainRegister()),
+                    );
+                  },
                   child: Text(
                     'ลงทะเบียน',
                     style: TextStyles().txtBottomRegister,

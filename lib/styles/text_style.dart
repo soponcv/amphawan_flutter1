@@ -19,6 +19,10 @@ class TextStyles {
   TextStyle txtBottomRegister = TextStyle(
       fontFamily: FontStyles().fontFamily, color: Colors.black, fontSize: 18);
 
+  //FormRegister
+  TextStyle txtLableRegister = TextStyle(
+      fontFamily: FontStyles().fontFamily, color: Colors.black, fontSize: 18);
+
   TextStyle txt_appBar =
       TextStyle(fontFamily: FontStyles().fontFamily, fontSize: 16);
   TextStyles() : super();
