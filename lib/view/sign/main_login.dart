@@ -1,12 +1,11 @@
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
+import 'package:amphawan/view/sign/signInPlatform/signin_facebook.dart';
+import 'package:amphawan/view/sign/signInPlatform/signin_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:flutter_line_sdk/flutter_line_sdk.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as JSON;
 
 class MainLogin extends StatefulWidget {
   @override
@@ -15,65 +14,15 @@ class MainLogin extends StatefulWidget {
 
 class _MainLoginState extends State<MainLogin> {
   final _formKey = GlobalKey<FormState>();
-  bool _isLoggedIn = false;
-  Map userProfile;
-  final facebookLogin = FacebookLogin();
-
-  _loginWithFB() async {
-    final result = await facebookLogin.logInWithReadPermissions(['email']);
-
-    switch (result.status) {
-      case FacebookLoginStatus.loggedIn:
-        final token = result.accessToken.token;
-        final graphResponse = await http.get(
-            'https://graph.facebook.com/v2.12/me?fields=name,picture,email&access_token=${token}');
-        final profile = JSON.jsonDecode(graphResponse.body);
-        print(profile);
-        setState(() {
-          userProfile = profile;
-          _isLoggedIn = true;
-        });
-        break;
-
-      case FacebookLoginStatus.cancelledByUser:
-        setState(() => _isLoggedIn = false);
-        break;
-      case FacebookLoginStatus.error:
-        setState(() => _isLoggedIn = false);
-        break;
-    }
-  }
-
-  _logout() {
-    facebookLogin.logOut();
-    setState(() {
-      _isLoggedIn = false;
-    });
-  }
-
-  // LINE
-
-  void lineSDKInit() async {
-    await LineSDK.instance.setup("1654625879").then((_) {
-      print("LineSDK is Prepared");
-    });
-  }
 
   @override
   void initState() {
-    lineSDKInit();
+    //Login LINE
+    SignInLine().lineSDKInit();
     super.initState();
   }
 
-  void startLineLogin() async {
-    try {
-      final result = await LineSDK.instance.login(scopes: ["profile"]);
-      print(result.toString());
-    } on PlatformException catch (e) {
-      print(e);
-      
-    }
-  }
+  // LogIn Google
 
   Widget signIn() {
     return Container(
@@ -191,7 +140,7 @@ class _MainLoginState extends State<MainLogin> {
                               color: Color(0xFF4267B2),
                               child: InkWell(
                                 onTap: () {
-                                  _loginWithFB();
+                                  SignInFacebook().loginWithFB();
                                 },
                                 child: Row(
                                   mainAxisAlignment:
@@ -219,7 +168,7 @@ class _MainLoginState extends State<MainLogin> {
                               color: Color(0xFF00B900),
                               child: InkWell(
                                 onTap: () {
-                                  startLineLogin();
+                                  SignInLine().startLineLogin();
                                 },
                                 child: Row(
                                   mainAxisAlignment:
