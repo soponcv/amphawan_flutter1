@@ -1,3 +1,4 @@
+import 'package:amphawan/frontpage/dhamma.dart';
 import 'package:amphawan/frontpage/home.dart';
 import 'package:amphawan/frontpage/menu.dart';
 import 'package:amphawan/styles/font_style.dart';
@@ -17,7 +18,7 @@ class _frontpageState extends State<frontpage> {
   final widgetOptions = [
     HomePage(),
     HomePage(),
-    HomePage(),
+    DhammaPage(),
     HomePage(),
     ListMenu(),
   ];

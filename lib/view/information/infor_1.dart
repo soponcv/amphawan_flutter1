@@ -3,12 +3,12 @@ import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
 import 'package:flutter/material.dart';
 
-class AboutWat extends StatefulWidget {
+class Infor_1 extends StatefulWidget {
   @override
-  _AboutWatState createState() => _AboutWatState();
+  _Infor_1State createState() => _Infor_1State();
 }
 
-class _AboutWatState extends State<AboutWat> {
+class _Infor_1State extends State<Infor_1> {
   TextStyle topic = TextStyle(
       fontFamily: FontStyles().fontFamily,
       color: Color(0xFF7F9525),

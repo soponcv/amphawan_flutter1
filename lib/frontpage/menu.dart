@@ -1,6 +1,9 @@
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
-import 'package:amphawan/view/information/about.dart';
+import 'package:amphawan/view/information/infor_1.dart';
+import 'package:amphawan/view/information/infor_2.dart';
+import 'package:amphawan/view/information/infor_3.dart';
+import 'package:amphawan/view/information/infor_preparation.dart';
 import 'package:amphawan/view/sign/main_login.dart';
 import 'package:flutter/material.dart';
 
@@ -178,7 +181,7 @@ class _ListMenuState extends State<ListMenu> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => AboutWat()),
+                                      builder: (context) => Infor_1()),
                                 );
                               },
                               child: Row(
@@ -195,7 +198,13 @@ class _ListMenuState extends State<ListMenu> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Infor_2()),
+                                );
+                              },
                               child: Row(
                                 children: <Widget>[
                                   SizedBox(
@@ -210,7 +219,13 @@ class _ListMenuState extends State<ListMenu> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Infor_3()),
+                                );
+                              },
                               child: Row(
                                 children: <Widget>[
                                   SizedBox(
@@ -253,7 +268,13 @@ class _ListMenuState extends State<ListMenu> {
                         child: Column(
                           children: <Widget>[
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Preparation()),
+                                );
+                              },
                               child: Row(
                                 children: <Widget>[
                                   SizedBox(

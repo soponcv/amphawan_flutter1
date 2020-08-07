@@ -21,7 +21,15 @@ class TextStyles {
 
   //FormRegister
   TextStyle txtLableRegister = TextStyle(
-      fontFamily: FontStyles().fontFamily, color: Colors.black, fontSize: 18);
+      fontFamily: FontStyles().fontFamily, color: Colors.black, fontSize: 16);
+
+  //Infromation
+  TextStyle txtInfor2 = TextStyle(
+      fontFamily: FontStyles().fontFamily,
+      color: Color(0xFF7F9525),
+      fontSize: 16);
+  TextStyle txtInfor2_a = TextStyle(
+      fontFamily: FontStyles().fontFamily, color: Colors.black, fontSize: 16);
 
   TextStyle txt_appBar =
       TextStyle(fontFamily: FontStyles().fontFamily, fontSize: 16);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
 class FontStyles {
-  String fontFamily = 'Kanit';
+  String fontFamily = 'K2D';
   FontStyles() : super();
 }
