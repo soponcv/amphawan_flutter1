@@ -55,13 +55,13 @@ class _frontpageState extends State<frontpage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('หน้าหลัก',
-                style: TextStyle(fontSize: 12, fontFamily: 'Kanit')),
+                style: TextStyle(fontSize: 12, fontFamily: 'K2D')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.event),
             title: Text(
               'กิจกรรม',
-              style: TextStyle(fontSize: 12, fontFamily: 'Kanit'),
+              style: TextStyle(fontSize: 12, fontFamily: 'K2D'),
             ),
           ),
           BottomNavigationBarItem(
@@ -70,17 +70,17 @@ class _frontpageState extends State<frontpage> {
               color: Colors.white,
             ),
             title: Text('ปฎิบัติธรรม',
-                style: TextStyle(fontSize: 12, fontFamily: 'Kanit')),
+                style: TextStyle(fontSize: 12, fontFamily: 'K2D')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.play_circle_outline),
             title: Text('สื่อธรรมะ',
-                style: TextStyle(fontSize: 12, fontFamily: 'Kanit')),
+                style: TextStyle(fontSize: 12, fontFamily: 'K2D')),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
             title: Text('เมนูอื่น ๆ',
-                style: TextStyle(fontSize: 12, fontFamily: 'Kanit')),
+                style: TextStyle(fontSize: 12, fontFamily: 'K2D')),
           ),
         ],
         currentIndex: _selectedIndex,
