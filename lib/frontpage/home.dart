@@ -1,11 +1,14 @@
+import 'package:amphawan/frontpage/dhamma.dart';
 import 'package:amphawan/frontpage/dhamma/dhammaOne.dart';
 import 'package:amphawan/frontpage/dhamma/dhammaThree.dart';
 import 'package:amphawan/frontpage/dhamma/dhammaTwo.dart';
 import 'package:amphawan/frontpage/home/Impression.dart';
 import 'package:amphawan/frontpage/home/activity.dart';
 import 'package:amphawan/frontpage/home/bannerSlide.dart';
+import 'package:amphawan/frontpage/media.dart';
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
+import 'package:amphawan/view/information/infor_1.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_flutter/marquee_flutter.dart';
@@ -202,7 +205,11 @@ class _HomePageState extends State<HomePage> {
                                 top: top < 220 ? top - 150 : 100,
                                 child: InkWell(
                                   onTap: () {
-                                    print('รู่จักวัด');
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Infor_1()),
+                                    );
                                   },
                                   child: Container(
                                     width:
@@ -228,7 +235,11 @@ class _HomePageState extends State<HomePage> {
                                 top: top < 220 ? top - 150 : 100,
                                 child: InkWell(
                                   onTap: () {
-                                    print('รู่จักวัด');
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => DhammaPage()),
+                                    );
                                   },
                                   child: Container(
                                     width:
@@ -253,7 +264,13 @@ class _HomePageState extends State<HomePage> {
                                 left: MediaQuery.of(context).size.width * 0.7,
                                 top: top < 220 ? top - 150 : 100,
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MediaPage()),
+                                    );
+                                  },
                                   child: Container(
                                     width:
                                         MediaQuery.of(context).size.width * 1.1,

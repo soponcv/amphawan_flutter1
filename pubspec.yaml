@@ -79,6 +79,8 @@ flutter:
     - assets/images/tst/tst_banner.png
     - assets/images/tst/tst_2.png
     - assets/images/tst/tst_3.png
+    - assets/images/tst/tst_4.png
+    - assets/images/tst/tst_5.png
 
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

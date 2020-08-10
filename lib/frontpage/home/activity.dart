@@ -1,3 +1,4 @@
+import 'package:amphawan/frontpage/activity.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_dhamma.dart';
 import 'package:amphawan/styles/text_frontpage.dart';
@@ -30,7 +31,13 @@ Widget activityDhamma(context) {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ActivityPage()),
+                        );
+                      },
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -63,7 +70,6 @@ Widget activityDhamma(context) {
                         mainAxisSize: MainAxisSize.max,
                         children: <Widget>[
                           Container(
-                            height: 70,
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +104,7 @@ Widget activityDhamma(context) {
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'กันยายน 63',
+                                              'พฤศจิกายน 63',
                                               style:
                                                   TextFrontpage().txtDateMonth,
                                             )

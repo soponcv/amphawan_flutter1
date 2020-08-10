@@ -1,5 +1,7 @@
+import 'package:amphawan/frontpage/activity.dart';
 import 'package:amphawan/frontpage/dhamma.dart';
 import 'package:amphawan/frontpage/home.dart';
+import 'package:amphawan/frontpage/media.dart';
 import 'package:amphawan/frontpage/menu.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +19,9 @@ class _frontpageState extends State<frontpage> {
   int _selectedIndex = 0;
   final widgetOptions = [
     HomePage(),
-    HomePage(),
+    ActivityPage(),
     DhammaPage(),
-    HomePage(),
+    MediaPage(),
     ListMenu(),
   ];
 

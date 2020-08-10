@@ -42,4 +42,10 @@ class TextFrontpage {
       fontFamily: FontStyles().fontFamily,
       color: Color(0xFFBE6C4E),
       fontSize: 14);
+
+  // *-*-*-
+  TextStyle txtBigHead = TextStyle(
+      fontFamily: FontStyles().fontFamily,
+      color: Color(0xFFB49C48),
+      fontSize: 19);
 }
