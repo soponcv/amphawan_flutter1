@@ -78,7 +78,7 @@ class _ActivityPageState extends State<ActivityPage> {
                               SizedBox(
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.2,
+                                      MediaQuery.of(context).size.width * 0.21,
                                   child: Column(
                                     children: [
                                       Row(
@@ -104,7 +104,7 @@ class _ActivityPageState extends State<ActivityPage> {
                             ],
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(3)),
+                        Padding(padding: EdgeInsets.all(1)),
                         Container(
                           child: Column(
                             children: [
@@ -119,7 +119,7 @@ class _ActivityPageState extends State<ActivityPage> {
                             ],
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(3)),
+                        Padding(padding: EdgeInsets.all(1)),
                         Text(
                           'กิจกรรม',
                           style: TextStyle(
@@ -142,7 +142,7 @@ class _ActivityPageState extends State<ActivityPage> {
                               SizedBox(
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.2,
+                                      MediaQuery.of(context).size.width * 0.21,
                                   child: Column(
                                     children: [
                                       Row(
@@ -180,7 +180,7 @@ class _ActivityPageState extends State<ActivityPage> {
                             ],
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(3)),
+                        Padding(padding: EdgeInsets.all(1)),
                         Container(
                           child: Column(
                             children: [
@@ -217,7 +217,7 @@ class _ActivityPageState extends State<ActivityPage> {
                             ],
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(3)),
+                        Padding(padding: EdgeInsets.all(1)),
                         InkWell(
                           onTap: () {},
                           child: Container(
@@ -264,7 +264,7 @@ class _ActivityPageState extends State<ActivityPage> {
                               SizedBox(
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.2,
+                                      MediaQuery.of(context).size.width * 0.21,
                                   child: Column(
                                     children: [
                                       Row(
@@ -302,7 +302,7 @@ class _ActivityPageState extends State<ActivityPage> {
                             ],
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(3)),
+                        Padding(padding: EdgeInsets.all(1)),
                         Container(
                           child: Column(
                             children: [
@@ -339,7 +339,7 @@ class _ActivityPageState extends State<ActivityPage> {
                             ],
                           ),
                         ),
-                        Padding(padding: EdgeInsets.all(3)),
+                        Padding(padding: EdgeInsets.all(1)),
                         InkWell(
                           onTap: () {},
                           child: Container(

@@ -76,8 +76,8 @@ Widget activityDhamma(context) {
                               children: <Widget>[
                                 SizedBox(
                                   child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.22,
                                     child: Column(
                                       children: [
                                         Row(
@@ -114,7 +114,7 @@ Widget activityDhamma(context) {
                                     ),
                                   ),
                                 ),
-                                Padding(padding: EdgeInsets.all(3)),
+                                Padding(padding: EdgeInsets.all(1)),
                                 Container(
                                   child: Column(
                                     children: [
@@ -153,14 +153,14 @@ Widget activityDhamma(context) {
                                     ],
                                   ),
                                 ),
-                                Padding(padding: EdgeInsets.all(3)),
+                                Padding(padding: EdgeInsets.all(1)),
                               ],
                             ),
                           ),
                           InkWell(
                             onTap: () {},
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.61,
+                              width: MediaQuery.of(context).size.width * 0.6,
                               height: 50,
                               child: Card(
                                   elevation: 0.0,

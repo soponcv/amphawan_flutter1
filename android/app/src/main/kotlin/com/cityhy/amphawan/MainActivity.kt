@@ -1,4 +1,4 @@
-package com.cityhy.amphawan
+package com.cityvariety.amphawan
 
 import android.os.Bundle
 import androidx.annotation.NonNull;
