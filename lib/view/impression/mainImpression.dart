@@ -1,8 +1,6 @@
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
-import 'package:amphawan/styles/text_frontpage.dart';
 import 'package:amphawan/styles/text_style.dart';
-import 'package:amphawan/view/activity/detail.dart';
 import 'package:amphawan/view/impression/detail.dart';
 import 'package:flutter/material.dart';
 
