@@ -1,7 +1,8 @@
-class PathAPI {
-  String base_url = 'http://amphawan.cityvariety.co.th/';
+final String _base_url = "http://amphawan.cityvariety.co.th/";
 
-  // get... => SELECT ,post... => INSERT ,update... => UPDATE ,del... => DELETE
+class PathAPI {
+  //ปฏิบัติธรรม
+  String getAllListDhamma = _base_url + '';
 
   PathAPI() : super();
 }
