@@ -5,8 +5,10 @@ class TextStyles {
   //Text Main Menu
   TextStyle appBar = TextStyle(fontFamily: FontStyles().fontFamily);
   //Titel Bar
-  TextStyle titleBar =
-      TextStyle(fontFamily: FontStyles().fontFamily, color: Color(0xFF4D890E));
+  TextStyle titleBar = TextStyle(
+      fontFamily: FontStyles().fontFamily,
+      fontSize: 18,
+      color: Color(0xFF4D890E));
   //Login
   TextStyle txtLogin = TextStyle(
       fontFamily: FontStyles().fontFamily, fontSize: 16, color: Colors.white);

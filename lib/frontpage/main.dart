@@ -1,7 +1,7 @@
-import 'package:amphawan/frontpage/activity.dart';
-import 'package:amphawan/frontpage/dhamma.dart';
+import 'package:amphawan/view/activity/mainActivity.dart';
+import 'package:amphawan/view/dhamma/mainDhamma.dart';
 import 'package:amphawan/frontpage/home.dart';
-import 'package:amphawan/frontpage/media.dart';
+import 'package:amphawan/view/media/mainMedia.dart';
 import 'package:amphawan/frontpage/menu.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:flutter/material.dart';

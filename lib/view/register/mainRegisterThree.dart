@@ -4,6 +4,10 @@ import 'package:amphawan/styles/text_style.dart';
 import 'package:flutter/material.dart';
 
 class MainRegisterThree extends StatefulWidget {
+  final String txtTitle;
+  final String txtDetail;
+  MainRegisterThree({Key key, @required this.txtTitle, this.txtDetail})
+      : super(key: key);
   @override
   _MainRegisterThreeState createState() => _MainRegisterThreeState();
 }
@@ -244,13 +248,33 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
     );
   }
 
+  String detail;
+
   @override
+  void initState() {
+    detail = widget.txtDetail;
+    super.initState();
+  }
+
+  Widget _boxDetail() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.90,
+      child: Text(
+        detail,
+        style: TextStyle(
+            fontFamily: FontStyles().fontFamily,
+            fontSize: 14,
+            color: Color(0xFF4D890E)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'ลงทะเบียน',
+          widget.txtTitle != '' ? widget.txtTitle : 'ลงทะเบียนปฏิบัติธรรม',
           style: TextStyles().titleBar,
         ),
         shape: CustomShapeBorder(),
@@ -266,6 +290,7 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
           child: Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.all(10)),
+              detail != '' ? _boxDetail() : Padding(padding: EdgeInsets.all(0)),
               Center(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.98,

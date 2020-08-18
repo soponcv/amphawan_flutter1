@@ -128,7 +128,11 @@ class _SignUpState extends State<SignUp> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MainRegister()),
+                    MaterialPageRoute(
+                        builder: (context) => MainRegister(
+                              txtTitle: 'ลงทะเบียนสมาชิก',
+                              txtDetail: '',
+                            )),
                   );
                 },
                 child: Text(

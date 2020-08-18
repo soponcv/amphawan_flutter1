@@ -1,13 +1,13 @@
-import 'package:amphawan/frontpage/dhamma.dart';
-import 'package:amphawan/frontpage/dhamma/dhammaOne.dart';
-import 'package:amphawan/frontpage/dhamma/dhammaThree.dart';
-import 'package:amphawan/frontpage/dhamma/dhammaTwo.dart';
+import 'package:amphawan/view/dhamma/mainDhamma.dart';
 import 'package:amphawan/frontpage/home/Impression.dart';
 import 'package:amphawan/frontpage/home/activity.dart';
 import 'package:amphawan/frontpage/home/bannerSlide.dart';
-import 'package:amphawan/frontpage/media.dart';
+import 'package:amphawan/view/media/mainMedia.dart';
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
+import 'package:amphawan/view/dhamma/dhammaOne.dart';
+import 'package:amphawan/view/dhamma/dhammaThree.dart';
+import 'package:amphawan/view/dhamma/dhammaTwo.dart';
 import 'package:amphawan/view/information/infor_1.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -66,11 +66,11 @@ class _HomePageState extends State<HomePage> {
                     child: Column(
                       children: <Widget>[
                         Visibility(
-                          visible: top <= 90.0 ? true : false,
+                          visible: top <= 100.0 ? true : false,
                           child: Padding(padding: EdgeInsets.all(17)),
                         ),
                         Visibility(
-                          visible: top <= 90.0 ? true : false,
+                          visible: top <= 100.0 ? true : false,
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.9,
                             child: Row(
@@ -352,7 +352,6 @@ class _HomePageState extends State<HomePage> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
-                height: 210,
                 color: Color(0xFF27AE60),
                 child: Column(
                   children: [

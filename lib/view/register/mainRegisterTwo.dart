@@ -5,6 +5,10 @@ import 'package:amphawan/view/register/mainRegisterThree.dart';
 import 'package:flutter/material.dart';
 
 class MainRegisterTwo extends StatefulWidget {
+  final String txtTitle;
+  final String txtDetail;
+  MainRegisterTwo({Key key, @required this.txtTitle, this.txtDetail})
+      : super(key: key);
   @override
   _MainRegisterTwoState createState() => _MainRegisterTwoState();
 }
@@ -59,7 +63,7 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
               child: TextField(
                   controller: _inputLastNameBrother,
                   cursorColor: Colors.black,
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.text,
                   style: TextStyle(fontFamily: FontStyles().fontFamily),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -95,7 +99,7 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
               child: TextField(
                   controller: _inputLastNameMather,
                   cursorColor: Colors.black,
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.text,
                   style: TextStyle(fontFamily: FontStyles().fontFamily),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -131,7 +135,7 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
               child: TextField(
                   controller: _inputLastNameHusband,
                   cursorColor: Colors.black,
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.text,
                   style: TextStyle(fontFamily: FontStyles().fontFamily),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -167,7 +171,7 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
               child: TextField(
                   controller: _inputLastNameWife,
                   cursorColor: Colors.black,
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.text,
                   style: TextStyle(fontFamily: FontStyles().fontFamily),
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -285,7 +289,10 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MainRegisterThree()),
+                        builder: (context) => MainRegisterThree(
+                              txtTitle: widget.txtTitle,
+                              txtDetail: detail,
+                            )),
                   );
                 },
                 child: Text(
@@ -304,13 +311,33 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
     );
   }
 
+  String detail;
+
   @override
+  void initState() {
+    detail = widget.txtDetail;
+    super.initState();
+  }
+
+  Widget _boxDetail() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.90,
+      child: Text(
+        detail,
+        style: TextStyle(
+            fontFamily: FontStyles().fontFamily,
+            fontSize: 14,
+            color: Color(0xFF4D890E)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'ลงทะเบียน',
+          widget.txtTitle != '' ? widget.txtTitle : 'ลงทะเบียนปฏิบัติธรรม',
           style: TextStyles().titleBar,
         ),
         shape: CustomShapeBorder(),
@@ -326,6 +353,7 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
           child: Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.all(10)),
+              detail != '' ? _boxDetail() : Padding(padding: EdgeInsets.all(0)),
               Center(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.98,

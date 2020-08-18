@@ -1,4 +1,5 @@
-import 'package:amphawan/frontpage/activity.dart';
+import 'package:amphawan/view/activity/detail.dart';
+import 'package:amphawan/view/activity/mainActivity.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_dhamma.dart';
 import 'package:amphawan/styles/text_frontpage.dart';
@@ -158,7 +159,16 @@ Widget activityDhamma(context) {
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DeatilActivity(
+                                    topic: 'ทำบุญครบรอบ 72 ปี ชาตกาล',
+                                  ),
+                                ),
+                              );
+                            },
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.6,
                               height: 50,

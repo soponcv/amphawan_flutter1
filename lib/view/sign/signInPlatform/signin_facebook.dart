@@ -8,7 +8,7 @@ class SignInFacebook {
   Map profile;
 
   Future<Null> login() async {
-    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+    final FacebookLoginResult result = await facebookSignIn.logIn(["email"]);
 
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:

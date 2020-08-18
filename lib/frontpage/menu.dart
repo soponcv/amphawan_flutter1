@@ -1,5 +1,9 @@
+import 'package:amphawan/system/url.dart';
+import 'package:amphawan/view/dhamma/mainDhamma.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
+import 'package:amphawan/view/activity/mainActivity.dart';
+import 'package:amphawan/view/impression/mainImpression.dart';
 import 'package:amphawan/view/information/infor_1.dart';
 import 'package:amphawan/view/information/infor_2.dart';
 import 'package:amphawan/view/information/infor_3.dart';
@@ -304,7 +308,13 @@ class _ListMenuState extends State<ListMenu> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DhammaPage()),
+                                );
+                              },
                               child: Row(
                                 children: <Widget>[
                                   SizedBox(
@@ -377,7 +387,14 @@ class _ListMenuState extends State<ListMenu> {
                         child: Column(
                           children: <Widget>[
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ActivityPage(),
+                                  ),
+                                );
+                              },
                               child: Row(
                                 children: <Widget>[
                                   SizedBox(
@@ -392,7 +409,13 @@ class _ListMenuState extends State<ListMenu> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ImpressionPage()),
+                                );
+                              },
                               child: Row(
                                 children: <Widget>[
                                   SizedBox(
@@ -465,7 +488,10 @@ class _ListMenuState extends State<ListMenu> {
                         child: Column(
                           children: <Widget>[
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Url().launchInBrowser(
+                                    'https://www.amphawan.net/%e0%b8%95%e0%b8%b4%e0%b8%94%e0%b8%95%e0%b9%88%e0%b8%ad/');
+                              },
                               child: Row(
                                 children: <Widget>[
                                   SizedBox(
@@ -480,7 +506,10 @@ class _ListMenuState extends State<ListMenu> {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Url().launchInBrowser(
+                                    'https://www.amphawan.net/');
+                              },
                               child: Row(
                                 children: <Widget>[
                                   SizedBox(

@@ -5,6 +5,10 @@ import 'package:amphawan/view/register/mainRegisterTwo.dart';
 import 'package:flutter/material.dart';
 
 class MainRegister extends StatefulWidget {
+  final String txtTitle;
+  final String txtDetail;
+  MainRegister({Key key, @required this.txtTitle, this.txtDetail})
+      : super(key: key);
   @override
   _MainRegisterState createState() => _MainRegisterState();
 }
@@ -329,7 +333,11 @@ class _MainRegisterState extends State<MainRegister> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MainRegisterTwo()),
+                    MaterialPageRoute(
+                        builder: (context) => MainRegisterTwo(
+                              txtTitle: widget.txtTitle,
+                              txtDetail: detail,
+                            )),
                   );
                 },
                 child: Text(
@@ -348,13 +356,33 @@ class _MainRegisterState extends State<MainRegister> {
     );
   }
 
+  String detail;
+
   @override
+  void initState() {
+    detail = widget.txtDetail;
+    super.initState();
+  }
+
+  Widget _boxDetail() {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.90,
+      child: Text(
+        detail,
+        style: TextStyle(
+            fontFamily: FontStyles().fontFamily,
+            fontSize: 14,
+            color: Color(0xFF4D890E)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'ลงทะเบียน',
+          widget.txtTitle != '' ? widget.txtTitle : 'ลงทะเบียนปฏิบัติธรรม',
           style: TextStyles().titleBar,
         ),
         shape: CustomShapeBorder(),
@@ -370,6 +398,7 @@ class _MainRegisterState extends State<MainRegister> {
           child: Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.all(10)),
+              detail != '' ? _boxDetail() : Padding(padding: EdgeInsets.all(0)),
               Center(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.98,

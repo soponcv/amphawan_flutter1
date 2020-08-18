@@ -1,5 +1,7 @@
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_frontpage.dart';
+import 'package:amphawan/view/impression/detail.dart';
+import 'package:amphawan/view/impression/mainImpression.dart';
 import 'package:flutter/material.dart';
 
 final List<String> imgTest = [
@@ -51,7 +53,13 @@ Widget impression(context) {
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ImpressionPage()),
+                      );
+                    },
                     child: Row(
                       children: [
                         Text(
@@ -84,6 +92,17 @@ Widget impression(context) {
                   child: InkWell(
                     onTap: () {
                       print(index.toString());
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailImpression(
+                            id: index,
+                            topic:
+                                'พี่ๆน้องๆร่วมฟังปาติโมกข์ ในพระอุโบสด วัดอัมพวัน',
+                          ),
+                        ),
+                      );
                     },
                     child: ClipRRect(
                       child: Stack(
