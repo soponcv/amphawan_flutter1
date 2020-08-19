@@ -11,4 +11,10 @@ class TextDhamma {
       fontFamily: FontStyles().fontFamily,
       color: Color(0xFFB9582C),
       fontSize: 15);
+
+  //Text Topic for activity
+  TextStyle txtTopicActivity = TextStyle(
+      fontFamily: FontStyles().fontFamily,
+      color: Color(0xFFB49C48),
+      fontSize: 18);
 }

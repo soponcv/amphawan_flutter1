@@ -1,9 +1,11 @@
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
-import 'package:amphawan/view/register/main_register.dart';
+import 'package:amphawan/view/sign/signUp/signUp.dart';
 import 'package:amphawan/view/sign/signInPlatform/signin_facebook.dart';
 import 'package:amphawan/view/sign/signInPlatform/signin_line.dart';
+// import 'package:amphawan/view/sign/signInPlatform/signin_facebook.dart';
+// import 'package:amphawan/view/sign/signInPlatform/signin_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -94,7 +96,7 @@ class _MainLoginState extends State<MainLogin> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => MainRegister()),
+                      MaterialPageRoute(builder: (context) => SignUp()),
                     );
                   },
                   child: Text(
@@ -145,7 +147,7 @@ class _MainLoginState extends State<MainLogin> {
                               color: Color(0xFF4267B2),
                               child: InkWell(
                                 onTap: () {
-                                  SignInFacebook().loginWithFB();
+                                  SignInFacebook().login();
                                 },
                                 child: Row(
                                   mainAxisAlignment:
