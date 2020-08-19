@@ -2,6 +2,7 @@ import 'package:amphawan/view/dhamma/mainDhamma.dart';
 import 'package:amphawan/frontpage/home/Impression.dart';
 import 'package:amphawan/frontpage/home/activity.dart';
 import 'package:amphawan/frontpage/home/bannerSlide.dart';
+import 'package:amphawan/view/dhamma/model/listDhamma.dart';
 import 'package:amphawan/view/media/mainMedia.dart';
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
@@ -393,7 +394,7 @@ class _HomePageState extends State<HomePage> {
               Padding(padding: EdgeInsets.all(2)),
               activityDhamma(context),
               Padding(padding: EdgeInsets.all(2)),
-              dhammaOne(context),
+              DhammaOne(),
               Padding(padding: EdgeInsets.all(1)),
               dhammaTwo(context),
               Padding(padding: EdgeInsets.all(1)),

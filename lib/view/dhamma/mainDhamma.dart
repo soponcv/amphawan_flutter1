@@ -37,7 +37,7 @@ class _DhammaPageState extends State<DhammaPage> {
           child: Column(
             children: <Widget>[
               Padding(padding: EdgeInsets.all(10)),
-              dhammaOne(context),
+              DhammaOne(),
               Padding(padding: EdgeInsets.all(5)),
               dhammaTwo(context),
               Padding(padding: EdgeInsets.all(5)),
