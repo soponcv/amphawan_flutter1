@@ -1,6 +1,7 @@
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -272,6 +273,13 @@ class _HomePageState extends State<HomePage> {
                                                 color: Colors.white,
                                               ),
                                             ),
+                                          ),
+                                          Container( 
+                                            height: 20,
+                                            child:Marquee(
+                                              scrollAxis: Axis.horizontal,
+                                              text: '“สวดมนต์คือยาทา วิปัสสนาคือยากิน”',
+                                            )
                                           )
                                         ],
                                       ),
