@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "318116467939",
+    "firebase_url": "https://amphawan.firebaseio.com",
+    "project_id": "amphawan",
+    "storage_bucket": "amphawan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:318116467939:android:f01b8106c2701e18c1a1d6",
+        "android_client_info": {
+          "package_name": "com.cityvariety.amphawan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "318116467939-8mnece3ckrdvkm9p8borl3elaoirug5q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiVwLh9d8fn3s3WQKbvBh95wxrY1imRSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "318116467939-8mnece3ckrdvkm9p8borl3elaoirug5q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "318116467939-5rp0f1itim33m1lmojg0phkipllsbhv9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cityvariety.amphawan"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

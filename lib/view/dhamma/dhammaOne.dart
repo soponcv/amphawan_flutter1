@@ -170,16 +170,20 @@ class DhammaList1 extends StatelessWidget {
                                 style: TextDhamma().txtTopic,
                               ),
                               Padding(padding: EdgeInsets.all(7)),
-                              Text(
-                                '(ว่าง 7 ที่)',
-                                style: TextStyle(
-                                    fontFamily: FontStyles().fontFamily,
-                                    color: Color(0xFF67B762)),
-                              ),
+                              int.parse(dhamma[index].num_person) > 0
+                                  ? Text(
+                                      '(ว่าง ' +
+                                          dhamma[index].num_person +
+                                          ' ที่)',
+                                      style: TextStyle(
+                                          fontFamily: FontStyles().fontFamily,
+                                          color: Color(0xFF67B762)),
+                                    )
+                                  : Text(''),
                             ],
                           ),
                         ),
-                        int.parse(dhamma[index].cid) == 0
+                        int.parse(dhamma[index].num_person) > 0
                             ? Container(
                                 width: 90,
                                 child: RaisedButton(

@@ -28,7 +28,9 @@ dependencies:
   url_launcher: ^5.5.0
   #-------
   flutter_local_notifications: ^1.4.4+3
-  workmanager: ^0.2.3
+  firebase_messaging: ^7.0.0
+  firebase_core: ^0.5.0
+  path_provider: ^1.6.11
   
   #---------------
   flutter:
