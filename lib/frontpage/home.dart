@@ -12,7 +12,7 @@ import 'package:amphawan/view/dhamma/dhammaTwo.dart';
 import 'package:amphawan/view/information/infor_1.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
+import 'package:marquee_flutter/marquee_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
