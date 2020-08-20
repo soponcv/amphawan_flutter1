@@ -360,7 +360,7 @@ class _HomePageState extends State<HomePage> {
                     CarouselSlider(
                       items: imageSliders,
                       options: CarouselOptions(
-                          autoPlay: true,
+                          autoPlay: false,
                           aspectRatio: 2.5,
                           enlargeCenterPage: true,
                           onPageChanged: (index, reason) {
@@ -396,7 +396,7 @@ class _HomePageState extends State<HomePage> {
               Padding(padding: EdgeInsets.all(2)),
               DhammaOne(),
               Padding(padding: EdgeInsets.all(1)),
-              dhammaTwo(context),
+              DhammaTwo(),
               Padding(padding: EdgeInsets.all(1)),
               dhammaThree(context),
               Padding(padding: EdgeInsets.all(3)),
