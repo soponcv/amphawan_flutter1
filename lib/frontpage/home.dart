@@ -12,7 +12,7 @@ import 'package:amphawan/view/dhamma/dhammaTwo.dart';
 import 'package:amphawan/view/information/infor_1.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:marquee/marquee.dart';
+import 'package:marquee_flutter/marquee_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -360,7 +360,7 @@ class _HomePageState extends State<HomePage> {
                     CarouselSlider(
                       items: imageSliders,
                       options: CarouselOptions(
-                          autoPlay: true,
+                          autoPlay: false,
                           aspectRatio: 2.5,
                           enlargeCenterPage: true,
                           onPageChanged: (index, reason) {
@@ -396,7 +396,7 @@ class _HomePageState extends State<HomePage> {
               Padding(padding: EdgeInsets.all(2)),
               DhammaOne(),
               Padding(padding: EdgeInsets.all(1)),
-              dhammaTwo(context),
+              DhammaTwo(),
               Padding(padding: EdgeInsets.all(1)),
               dhammaThree(context),
               Padding(padding: EdgeInsets.all(3)),
