@@ -1,8 +1,13 @@
+import 'dart:convert';
+
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
+import 'package:amphawan/system/pathAPI.dart';
 import 'package:amphawan/view/register/mainRegister.dart';
 import 'package:flutter/material.dart';
+
+import 'package:http/http.dart' as http;
 
 class SignUp extends StatefulWidget {
   @override
@@ -18,8 +23,36 @@ class _SignUpState extends State<SignUp> {
   TextEditingController _inputUsername = TextEditingController();
   TextEditingController _inputPassword = TextEditingController();
   TextEditingController _inputEmail = TextEditingController();
-
   //End-----Text Input
+
+// Make Data to Map
+  _perData() {
+    Map _map = {};
+    String name = _inputName.text;
+    String lastName = _inputLastName.text;
+    String username = _inputUsername.text;
+    String password = _inputPassword.text;
+    String email = _inputEmail.text;
+    _map.addAll({
+      "name": name,
+      "lastName": lastName,
+      "username": username,
+      "password": password,
+      "email": email,
+    });
+
+    var body = json.encode(_map);
+    print(body);
+    postDRegister(http.Client(), body); // Send Data To API(PHP)
+  }
+
+  Future<String> postDRegister(http.Client client, jsonMap) async {
+    final response = await client.post(PathAPI().postMember,
+        headers: {"Content-Type": "application/json"}, body: jsonMap);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+  }
+
   Widget usernameResgister() {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
@@ -126,10 +159,12 @@ class _SignUpState extends State<SignUp> {
               RaisedButton(
                 color: Color(0xFF52B64F),
                 onPressed: () {
+                  _perData();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => MainRegister(
+                              cid: null,
                               txtTitle: 'ลงทะเบียนสมาชิก',
                               txtDetail: '',
                             )),

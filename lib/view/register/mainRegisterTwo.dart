@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
@@ -5,9 +7,12 @@ import 'package:amphawan/view/register/mainRegisterThree.dart';
 import 'package:flutter/material.dart';
 
 class MainRegisterTwo extends StatefulWidget {
+  final String cid;
   final String txtTitle;
   final String txtDetail;
-  MainRegisterTwo({Key key, @required this.txtTitle, this.txtDetail})
+  final Map map;
+  MainRegisterTwo(
+      {Key key, @required this.cid, this.txtTitle, this.txtDetail, this.map})
       : super(key: key);
   @override
   _MainRegisterTwoState createState() => _MainRegisterTwoState();
@@ -33,6 +38,42 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
   TextEditingController _inputEmAddress = TextEditingController();
   TextEditingController _inputEmPhone = TextEditingController();
   //End-----Text Input
+
+  _perData() {
+    String inputNameBrother = _inputNameBrother.text;
+    String inputLastNameBrother = _inputLastNameBrother.text;
+    String inputNameMather = _inputNameMather.text;
+    String inputLastNameMather = _inputLastNameMather.text;
+    String inputNameHusband = _inputNameHusband.text;
+    String inputLastNameHusband = _inputLastNameHusband.text;
+    String inputNameWife = _inputNameWife.text;
+    String inputLastNameWife = _inputLastNameWife.text;
+    String inputEmergency = _inputEmergency.text;
+    String inputReEmergency = _inputReEmergency.text;
+    String inputEmAddress = _inputEmAddress.text;
+    String inputEmPhone = _inputEmPhone.text;
+
+    Map _map = {};
+    _map.addAll(widget.map);
+    _map.addAll({
+      "iNameBrother": inputNameBrother,
+      "iLastNameBrother": inputLastNameBrother,
+      "iNameMather": inputNameMather,
+      "iLastNameMather": inputLastNameMather,
+      "iNameHusband": inputNameHusband,
+      "iLastNameHusband": inputLastNameHusband,
+      "iNameWife": inputNameWife,
+      "iLastNameWife": inputLastNameWife,
+      "iEmergency": inputEmergency,
+      "iReEmergency": inputReEmergency,
+      "iEmAddress": inputEmAddress,
+      "iEmPhone": inputEmPhone,
+    });
+    print(_map);
+    return _map;
+    // var body = json.encode(map);
+    // postDRegister(http.Client(), body); // Send Data To API(PHP)
+  }
 
   Widget formResgister() {
     return Column(
@@ -290,8 +331,10 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => MainRegisterThree(
+                              cid: widget.cid,
                               txtTitle: widget.txtTitle,
                               txtDetail: detail,
+                              map: _perData(),
                             )),
                   );
                 },

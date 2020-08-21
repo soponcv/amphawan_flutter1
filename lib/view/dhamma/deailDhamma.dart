@@ -3,9 +3,9 @@ import 'package:amphawan/styles/text_style.dart';
 import 'package:flutter/material.dart';
 
 class DetailDhamma extends StatefulWidget {
-  final int id;
+  final int cid;
   final String topic;
-  DetailDhamma({Key key, @required this.id, this.topic}) : super(key: key);
+  DetailDhamma({Key key, @required this.cid, this.topic}) : super(key: key);
   @override
   _DetailDhammaState createState() => _DetailDhammaState();
 }

@@ -41,7 +41,7 @@ Widget dhammaThree(context) {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  DetailDhamma(id: 3, topic: 'โครงการอบรม')),
+                                  DetailDhamma(cid: 3, topic: 'โครงการอบรม')),
                         );
                       },
                       child: Icon(Icons.chevron_right),
@@ -162,6 +162,7 @@ Widget dhammaThree(context) {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => MainRegister(
+                                          cid: '4',
                                           txtTitle: 'สมัคร',
                                           txtDetail: 'โครงการอบรม'),
                                     ),

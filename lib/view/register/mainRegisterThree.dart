@@ -1,12 +1,20 @@
+import 'dart:convert';
+
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
+import 'package:amphawan/system/pathAPI.dart';
 import 'package:flutter/material.dart';
 
+import 'package:http/http.dart' as http;
+
 class MainRegisterThree extends StatefulWidget {
+  final String cid;
   final String txtTitle;
   final String txtDetail;
-  MainRegisterThree({Key key, @required this.txtTitle, this.txtDetail})
+  final Map map;
+  MainRegisterThree(
+      {Key key, @required this.cid, this.txtTitle, this.txtDetail, this.map})
       : super(key: key);
   @override
   _MainRegisterThreeState createState() => _MainRegisterThreeState();
@@ -26,8 +34,43 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
   TextEditingController _inputAmphawanNumber = TextEditingController();
   TextEditingController _inputLife = TextEditingController(); //ปัญหาชีวิต
   TextEditingController _inputAllure = TextEditingController(); //เหตุจูงใจ
-
   //End-----Text Input
+
+  // Make Data to Map
+  _perData() {
+    Map _map = {};
+    _map.addAll(widget.map);
+
+    String inputMeditation = _inputMeditation.text;
+    String inputJangwat = _inputJangwat.text;
+    String inputPractice = _inputPractice.text;
+    String inputNumber = _inputNumber.text;
+    String inputInstructor = _inputInstructor.text;
+    String inputAmphawanNumber = _inputAmphawanNumber.text;
+    String inputLife = _inputLife.text;
+    String inputAllure = _inputAllure.text;
+    _map.addAll({
+      "iMeditation": inputMeditation,
+      "iJangwat": inputJangwat,
+      "iPractice": inputPractice,
+      "iNumber": inputNumber,
+      "iInstructor": inputInstructor,
+      "iAmphawanNumber": inputAmphawanNumber,
+      "iLife": inputLife,
+      "iAllure": inputAllure,
+    });
+
+    var body = json.encode(_map);
+    print(body);
+    postDRegister(http.Client(), body); // Send Data To API(PHP)
+  }
+
+  Future<String> postDRegister(http.Client client, jsonMap) async {
+    final response = await client.post(PathAPI().updateMember,
+        headers: {"Content-Type": "application/json"}, body: jsonMap);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+  }
 
   Widget formResgister() {
     return Column(
@@ -227,6 +270,7 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
               RaisedButton(
                 color: Color(0xFF75B732),
                 onPressed: () {
+                  _perData();
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(builder: (context) => SignUp()),

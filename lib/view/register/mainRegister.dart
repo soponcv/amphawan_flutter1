@@ -1,13 +1,17 @@
+import 'dart:convert';
+
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
+import 'package:amphawan/system/pathAPI.dart';
 import 'package:amphawan/view/register/mainRegisterTwo.dart';
 import 'package:flutter/material.dart';
 
 class MainRegister extends StatefulWidget {
+  final String cid;
   final String txtTitle;
   final String txtDetail;
-  MainRegister({Key key, @required this.txtTitle, this.txtDetail})
+  MainRegister({Key key, @required this.cid, this.txtTitle, this.txtDetail})
       : super(key: key);
   @override
   _MainRegisterState createState() => _MainRegisterState();
@@ -28,12 +32,51 @@ class _MainRegisterState extends State<MainRegister> {
   TextEditingController _inputBNum = TextEditingController();
   TextEditingController _inputBMoo = TextEditingController();
   TextEditingController _inputBSoy = TextEditingController();
+  TextEditingController _inputBRoad = TextEditingController();
   TextEditingController _inputBTambon = TextEditingController();
   TextEditingController _inputBAmpher = TextEditingController();
   TextEditingController _inputBJangwat = TextEditingController();
   TextEditingController _inputBZip = TextEditingController();
-
   //End-----Text Input
+
+  // Make Data to Map
+  _perData() {
+    String inputName = _inputName.text;
+    String inputLastName = _inputLastName.text;
+    String inputAge = _inputAge.text;
+    String inputIdCard = _inputIdCard.text;
+    String inputPhone = _inputPhone.text;
+    String inputDisease = _inputDisease.text;
+    String inputMind = _inputMind.text;
+    String inputBNum = _inputBNum.text;
+    String inputBMoo = _inputBMoo.text;
+    String inputBSoy = _inputBSoy.text;
+    String inputBRoad = _inputBRoad.text;
+    String inputBTambon = _inputBTambon.text;
+    String inputBAmpher = _inputBAmpher.text;
+    String inputBJangwat = _inputBJangwat.text;
+    String inputBZip = _inputBZip.text;
+    Map map = {
+      "iName": inputName,
+      "iLastName": inputLastName,
+      "iAge": inputAge,
+      "iIdCard": inputIdCard,
+      "iPhone": inputPhone,
+      "iDisease": inputDisease,
+      "iMind": inputMind,
+      "iBNum": inputBNum,
+      "iBMoo": inputBMoo,
+      "iBSoy": inputBSoy,
+      "iBRoad": inputBRoad,
+      "iBTambon": inputBTambon,
+      "iBAmpher": inputBAmpher,
+      "iBJangwat": inputBJangwat,
+      "iBZip": inputBZip,
+    };
+    // var body = json.encode(map);
+    return map;
+    // postDRegister(http.Client(), body); // Send Data To API(PHP)
+  }
 
   Widget formResgister() {
     return Column(
@@ -176,7 +219,7 @@ class _MainRegisterState extends State<MainRegister> {
               width: MediaQuery.of(context).size.width * 0.44,
               height: 50,
               child: TextField(
-                  controller: _inputName,
+                  controller: _inputBRoad,
                   cursorColor: Colors.black,
                   keyboardType: TextInputType.text,
                   style: TextStyle(fontFamily: FontStyles().fontFamily),
@@ -331,12 +374,15 @@ class _MainRegisterState extends State<MainRegister> {
               RaisedButton(
                 color: Color(0xFFF3A65A),
                 onPressed: () {
+                  // _perData();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => MainRegisterTwo(
+                              cid: widget.cid,
                               txtTitle: widget.txtTitle,
                               txtDetail: detail,
+                              map: _perData(),
                             )),
                   );
                 },
