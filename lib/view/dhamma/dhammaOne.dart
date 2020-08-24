@@ -3,7 +3,9 @@ import 'dart:async';
 
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_dhamma.dart';
+import 'package:amphawan/system/errorText.dart';
 import 'package:amphawan/system/pathAPI.dart';
+import 'package:amphawan/system/timeTH.dart';
 import 'package:amphawan/view/dhamma/deailDhamma.dart';
 import 'package:amphawan/view/dhamma/model/listDhamma.dart';
 import 'package:amphawan/view/register/mainRegister.dart';
@@ -123,6 +125,57 @@ class DhammaList1 extends StatelessWidget {
 
   DhammaList1({Key key, this.dhamma}) : super(key: key);
 
+  String _covTime(String dStart, String dEnd) {
+    String dS = dStart.substring(8, 10);
+    String mS = dStart.substring(5, 7);
+    int yStart1 = TimeTH().yearTh(int.parse(dStart.substring(0, 4)));
+    int yStart2 = TimeTH().yearTh(int.parse(dEnd.substring(0, 4)));
+    String dE = dEnd.substring(8, 10);
+    String mE = dEnd.substring(5, 7);
+    String month1, month2;
+    if (mS == mE) {
+      month1 = TimeTH().ShortMonth[int.parse(mS)];
+      String re = int.parse(dS).toString() +
+          "-" +
+          int.parse(dE).toString() +
+          " " +
+          month1 +
+          " " +
+          yStart1.toString().substring(2, 4);
+      return re;
+    } else if (mS != mE && yStart1 == yStart2) {
+      month1 = TimeTH().ShortMonth[int.parse(mS)];
+      month2 = TimeTH().ShortMonth[int.parse(mE)];
+      String re = int.parse(dS).toString() +
+          " " +
+          month1 +
+          "-" +
+          int.parse(dE).toString() +
+          " " +
+          month2 +
+          " " +
+          yStart1.toString().substring(2, 4);
+      return re;
+    } else if (mS != mE && yStart1 != yStart2) {
+      month1 = TimeTH().ShortMonth[int.parse(mS)];
+      month2 = TimeTH().ShortMonth[int.parse(mE)];
+      String yS1 = yStart1.toString().substring(2, 4);
+      String yS2 = yStart2.toString().substring(2, 4);
+      String re = int.parse(dS).toString() +
+          " " +
+          month1 +
+          " " +
+          yS1 +
+          "-" +
+          int.parse(dE).toString() +
+          " " +
+          month2 +
+          " " +
+          yS2;
+      return re;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -167,7 +220,8 @@ class DhammaList1 extends StatelessWidget {
                               ),
                               Padding(padding: EdgeInsets.all(3)),
                               Text(
-                                dhamma[index].subject,
+                                _covTime(dhamma[index].date_start,
+                                    dhamma[index].date_end),
                                 style: TextDhamma().txtTopic,
                               ),
                               Padding(padding: EdgeInsets.all(7)),
@@ -197,8 +251,12 @@ class DhammaList1 extends StatelessWidget {
                                             cid: dhamma[index].cid,
                                             txtTitle: 'สมัคร',
                                             txtDetail:
-                                                'ปฏิบัติธรรม รอบ 3 วัน (ศุกร์ เสาร์ อาทิตย์) ' +
-                                                    dhamma[index].subject),
+                                                'ปฏิบัติธรรม รอบ 3 วัน (ศุกร์ เสาร์ อาทิตย์) \n' +
+                                                    _covTime(
+                                                        dhamma[index]
+                                                            .date_start,
+                                                        dhamma[index]
+                                                            .date_end)),
                                       ),
                                     );
                                   },

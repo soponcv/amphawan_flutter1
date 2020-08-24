@@ -41,7 +41,7 @@ class _DhammaPageState extends State<DhammaPage> {
               Padding(padding: EdgeInsets.all(5)),
               DhammaTwo(),
               Padding(padding: EdgeInsets.all(5)),
-              dhammaThree(context),
+              DhammaThree(),
               Padding(padding: EdgeInsets.all(15)),
             ],
           ),

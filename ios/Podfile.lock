@@ -165,7 +165,7 @@ SPEC CHECKSUMS:
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   LineSDKSwift: 9eb384ada43d3a6e18e00bca890d55cfeb0cc774
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
-  path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
