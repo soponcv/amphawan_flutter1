@@ -386,10 +386,14 @@ class EventList extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => DeatilActivity(
-                                  id: int.parse(event[index].id),
-                                  uploadKey: event[index].uploadKey,
-                                  topic: event[index].subject,
-                                ),
+                                    id: int.parse(event[index].id),
+                                    uploadKey: event[index].uploadKey,
+                                    topic: event[index].subject,
+                                    description: event[index].description,
+                                    location: event[index].location,
+                                    date_start: event[index].date_start,
+                                    date_end: event[index].date_end,
+                                    create_date: event[index].create_date),
                               ),
                             );
                           },

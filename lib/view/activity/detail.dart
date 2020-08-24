@@ -38,6 +38,11 @@ class DeatilActivity extends StatefulWidget {
 }
 
 class _DeatilActivityState extends State<DeatilActivity> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
 // start---------------- Get Data From DATABASES
   Future<List<ListEventImg>> fetchEventImg(http.Client client) async {
     final response =
@@ -108,12 +113,12 @@ class _DeatilActivityState extends State<DeatilActivity> {
                               .toList();
                           return Carousel(
                             images: listImages,
-                            autoplay: false,
+                            autoplay: true,
                             animationDuration: Duration(milliseconds: 300),
                             dotSize: 3.0,
                             dotIncreaseSize: 2.0,
                             dotColor: Colors.white,
-                            dotBgColor: Colors.grey[800].withOpacity(0.5),
+                            dotBgColor: Colors.grey[800].withOpacity(0.1),
                             showIndicator: true,
                             indicatorBgPadding: 10.0,
                             boxFit: BoxFit.cover,
@@ -130,14 +135,55 @@ class _DeatilActivityState extends State<DeatilActivity> {
                   },
                 ),
               ),
-              Padding(padding: EdgeInsets.all(10)),
+              Padding(padding: EdgeInsets.all(5)),
               Center(
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[Text(widget.topic)],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.topic,
+                                    style: TextStyle(
+                                        fontFamily: FontStyles().fontFamily,
+                                        fontSize: 18,
+                                        color: Color(0xFF07930A)),
+                                  ),
+                                  Text(
+                                    widget.location,
+                                    style: TextStyle(
+                                        fontFamily: FontStyles().fontFamily,
+                                        fontSize: 14,
+                                        color: Color(0xFFC4C4C4)),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Text(
+                              widget.create_date.substring(0, 10),
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: FontStyles().fontFamily,
+                                fontSize: 12,
+                              ),
+                            )
+                          ],
+                        ),
+                        Padding(padding: EdgeInsets.all(10)),
+                        Container(
+                          child: Text(widget.description),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               )
