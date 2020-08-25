@@ -1,3 +1,9 @@
+import 'dart:convert';
+
+import 'package:amphawan/frontpage/home/marquee.dart';
+import 'package:amphawan/frontpage/home/model/listImageBanner.dart';
+import 'package:amphawan/system/errorText.dart';
+import 'package:amphawan/system/pathAPI.dart';
 import 'package:amphawan/view/dhamma/mainDhamma.dart';
 import 'package:amphawan/frontpage/home/Impression.dart';
 import 'package:amphawan/frontpage/home/activity.dart';
@@ -10,9 +16,12 @@ import 'package:amphawan/view/dhamma/dhammaOne.dart';
 import 'package:amphawan/view/dhamma/dhammaThree.dart';
 import 'package:amphawan/view/dhamma/dhammaTwo.dart';
 import 'package:amphawan/view/information/infor_1.dart';
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_flutter/marquee_flutter.dart';
+
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -311,21 +320,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                         ),
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.745,
-                                          child: MarqueeWidget(
-                                            text:
-                                                '“สวดมนต์คือยาทา วิปัสสนาคือยากิน”',
-                                            textStyle: TextStyle(
-                                                fontSize: 14.0,
-                                                fontFamily:
-                                                    FontStyles().fontFamily),
-                                            scrollAxis: Axis.horizontal,
-                                          ),
-                                        )
+                                        Marquee(),
                                       ],
                                     ),
                                   ),
@@ -352,45 +347,7 @@ class _HomePageState extends State<HomePage> {
             verticalDirection: VerticalDirection.down,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                color: Color(0xFF27AE60),
-                child: Column(
-                  children: [
-                    Padding(padding: EdgeInsets.all(10)),
-                    CarouselSlider(
-                      items: imageSliders,
-                      options: CarouselOptions(
-                          autoPlay: false,
-                          aspectRatio: 2.5,
-                          enlargeCenterPage: true,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          }),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: map<Widget>(
-                        imgList,
-                        (index, url) {
-                          return Container(
-                            width: 8.0,
-                            height: 8.0,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 2.0),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: _current == index
-                                    ? Color(0xFFF79E2A)
-                                    : Color(0xFFE3E5E8)),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              WidgetBanner(),
               Padding(padding: EdgeInsets.all(2)),
               EventDhamma(),
               Padding(padding: EdgeInsets.all(2)),

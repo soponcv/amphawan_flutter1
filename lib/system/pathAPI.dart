@@ -5,6 +5,12 @@ class PathAPI {
   //Notifications
   String getNotification = _base_url + 'dhamma';
 
+  //Banner
+  String getBanner = _base_url + 'banner';
+
+  //ข้อความวิ่ง
+  String getMessage = _base_url + 'welcomemessage';
+
   //ปฏิบัติธรรม
   String getAllDhamma = _base_url + 'dhamma';
   String getDhamma = _base_url + 'dhamma/get/';
@@ -16,7 +22,7 @@ class PathAPI {
   //สมัครสมาชิก
   String getMember = _base_url + 'member';
   String postMember = _base_url + 'member/post';
-  String updateMember = _base_url + 'member/update';
+  String updateMember = _base_url + 'member/update/';
 
   PathAPI() : super();
 }
