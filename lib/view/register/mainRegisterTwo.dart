@@ -3,8 +3,13 @@ import 'dart:convert';
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
+import 'package:amphawan/system/pathAPI.dart';
 import 'package:amphawan/view/register/mainRegisterThree.dart';
+import 'package:amphawan/view/register/model/listResgister.dart';
 import 'package:flutter/material.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainRegisterTwo extends StatefulWidget {
   final String cid;
@@ -20,6 +25,9 @@ class MainRegisterTwo extends StatefulWidget {
 
 class _MainRegisterTwoState extends State<MainRegisterTwo> {
   final _formKey = GlobalKey<FormState>();
+  String username;
+  String detail;
+  bool stu = false;
 
   //Start-----Text Input
   TextEditingController _inputNameBrother = TextEditingController(); //พ่อ
@@ -38,8 +46,58 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
   TextEditingController _inputEmAddress = TextEditingController();
   TextEditingController _inputEmPhone = TextEditingController();
   //End-----Text Input
+  @override
+  void initState() {
+    detail = widget.txtDetail;
+    // ----- SET VALUE ------
+    super.initState();
+    fetchRegister(http.Client());
+  }
 
-  _perData() {
+  //Start -- getShowData From DB
+  fetchRegister(http.Client client) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List map2;
+    setState(() {
+      username = prefs.getString('myUsername');
+      stu = prefs.getBool('myEdit2');
+    });
+    if (!stu) {
+      final response = await client.get(PathAPI().getMember + username);
+      List<dynamic> userMap = jsonDecode(response.body);
+      setState(() {
+        _inputNameBrother.text = userMap[0]['nameBrother'];
+        _inputLastNameBrother.text = userMap[0]['lastNameBrother'];
+        _inputNameMather.text = userMap[0]['nameMather'];
+        _inputLastNameMather.text = userMap[0]['lastNameMather'];
+        _inputNameHusband.text = userMap[0]['nameHusband'];
+        _inputLastNameHusband.text = userMap[0]['lastNameHusband'];
+        _inputNameWife.text = userMap[0]['nameWife'];
+        _inputLastNameWife.text = userMap[0]['lastNameWife'];
+        _inputEmergency.text = userMap[0]['emergency'];
+        _inputReEmergency.text = userMap[0]['reEmergency'];
+        _inputEmAddress.text = userMap[0]['emAddress'];
+        _inputEmPhone.text = userMap[0]['emPhone'];
+      });
+    } else {
+      map2 = json.decode(prefs.getString('map2'));
+      print(map2);
+      // _inputNameBrother.text = map2[0]['iNameBrother'];
+      // _inputLastNameBrother.text = map2[0]['iLastNameBrother'];
+      // _inputNameMather.text = map2[0]['iNameMather'];
+      // _inputLastNameMather.text = map2[0]['iLastNameMather'];
+      // _inputNameHusband.text = map2[0]['iNameHusband'];
+      // _inputLastNameHusband.text = map2[0]['iLastNameHusband'];
+      // _inputNameWife.text = map2[0]['iNameWife'];
+      // _inputLastNameWife.text = map2[0]['iLastNameWife'];
+      // _inputEmergency.text = map2[0]['iEmergency'];
+      // _inputReEmergency.text = map2[0]['iReEmergency'];
+      // _inputEmAddress.text = map2[0]['iEmAddress'];
+      // _inputEmPhone.text = map2[0]['iEmPhone'];
+    }
+  }
+
+  _perData() async {
     String inputNameBrother = _inputNameBrother.text;
     String inputLastNameBrother = _inputLastNameBrother.text;
     String inputNameMather = _inputNameMather.text;
@@ -70,6 +128,12 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
       "iEmPhone": inputEmPhone,
     });
     print(_map);
+    String stringMap = _map.toString();
+    _saveMap(stringMap);
+    setState(() {
+      stu = true;
+      _setEdit(stu);
+    });
     return _map;
     // var body = json.encode(map);
     // postDRegister(http.Client(), body); // Send Data To API(PHP)
@@ -327,6 +391,7 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
               RaisedButton(
                 color: Color(0xFFF3A65A),
                 onPressed: () {
+                  // ---------
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -352,14 +417,6 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
         ),
       ],
     );
-  }
-
-  String detail;
-
-  @override
-  void initState() {
-    detail = widget.txtDetail;
-    super.initState();
   }
 
   Widget _boxDetail() {
@@ -529,5 +586,17 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
         ),
       ),
     );
+  }
+
+  _setEdit(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setBool('myEdit2', value);
+    });
+  }
+
+  _saveMap(String stringMap) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('map2', stringMap);
   }
 }

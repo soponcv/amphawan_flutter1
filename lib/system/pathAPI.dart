@@ -20,7 +20,10 @@ class PathAPI {
   String getEventImage = _base_url + 'event/get/';
 
   //สมัครสมาชิก
-  String getMember = _base_url + 'member';
+  String getAllMember = _base_url + 'member';
+  String getMember = _base_url + 'member/get/';
+  String checkPostMember =
+      _base_url + 'member/checkPost'; //เช็ค Username ,Passsword
   String postMember = _base_url + 'member/post';
   String updateMember = _base_url + 'member/update/';
 

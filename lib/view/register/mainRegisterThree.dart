@@ -4,9 +4,11 @@ import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
 import 'package:amphawan/system/pathAPI.dart';
+import 'package:amphawan/view/register/model/listResgister.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainRegisterThree extends StatefulWidget {
   final String cid;
@@ -22,6 +24,9 @@ class MainRegisterThree extends StatefulWidget {
 
 class _MainRegisterThreeState extends State<MainRegisterThree> {
   final _formKey = GlobalKey<FormState>();
+  String detail;
+  String username;
+  bool stu = false;
 
   //Start-----Text Input
   TextEditingController _inputMeditation =
@@ -35,6 +40,37 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
   TextEditingController _inputLife = TextEditingController(); //ปัญหาชีวิต
   TextEditingController _inputAllure = TextEditingController(); //เหตุจูงใจ
   //End-----Text Input
+
+  @override
+  void initState() {
+    detail = widget.txtDetail;
+    super.initState();
+    fetchRegister(http.Client());
+  }
+
+  //Start -- getShowData From DB
+  fetchRegister(http.Client client) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('myUsername');
+      stu = prefs.getBool('myEdit3');
+    });
+    final response = await client.get(PathAPI().getMember + username);
+    List<dynamic> userMap = jsonDecode(response.body);
+    setState(() {
+      _inputMeditation.text = userMap[0]['meditation'];
+      _inputJangwat.text = userMap[0]['meditationJangwat'];
+      _inputPractice.text = userMap[0]['practice'];
+      _inputNumber.text = userMap[0]['practiceNumber'];
+      _inputInstructor.text = userMap[0]['instructor'];
+      _inputAmphawanNumber.text = userMap[0]['amphawanNumber'];
+      _inputLife.text = userMap[0]['life'];
+      _inputAllure.text = userMap[0]['allure'];
+    });
+    // ---------
+    // stu = true;
+    // prefs.setBool('myEdit3', stu);
+  }
 
   // Make Data to Map
   _perData() {
@@ -290,14 +326,6 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
         ),
       ],
     );
-  }
-
-  String detail;
-
-  @override
-  void initState() {
-    detail = widget.txtDetail;
-    super.initState();
   }
 
   Widget _boxDetail() {

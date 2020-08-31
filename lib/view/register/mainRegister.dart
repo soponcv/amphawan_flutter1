@@ -5,7 +5,11 @@ import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
 import 'package:amphawan/system/pathAPI.dart';
 import 'package:amphawan/view/register/mainRegisterTwo.dart';
+import 'package:amphawan/view/register/model/listResgister.dart';
 import 'package:flutter/material.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainRegister extends StatefulWidget {
   final String cid;
@@ -19,6 +23,9 @@ class MainRegister extends StatefulWidget {
 
 class _MainRegisterState extends State<MainRegister> {
   final _formKey = GlobalKey<FormState>();
+  String detail;
+  String username;
+  bool stu = false;
 
   //Start-----Text Input
   TextEditingController _inputName = TextEditingController();
@@ -27,7 +34,6 @@ class _MainRegisterState extends State<MainRegister> {
   TextEditingController _inputIdCard = TextEditingController();
   TextEditingController _inputPhone = TextEditingController();
   TextEditingController _inputDisease = TextEditingController(); //โรคประจำตัว
-  TextEditingController _inputMind = TextEditingController(); //สุขภาพจิต
   //บ้านเลขที่
   TextEditingController _inputBNum = TextEditingController();
   TextEditingController _inputBMoo = TextEditingController();
@@ -38,6 +44,48 @@ class _MainRegisterState extends State<MainRegister> {
   TextEditingController _inputBJangwat = TextEditingController();
   TextEditingController _inputBZip = TextEditingController();
   //End-----Text Input
+  @override
+  void initState() {
+    setStatus();
+    detail = widget.txtDetail;
+    // ----- SET VALUE ------
+    super.initState();
+    fetchRegister(http.Client());
+  }
+
+  //Start -- getShowData From DB
+  fetchRegister(http.Client client) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('myUsername');
+      stu = prefs.getBool('myEdit1');
+    });
+    if (!stu) {
+      final response = await client.get(PathAPI().getMember + username);
+      List<dynamic> userMap = jsonDecode(response.body);
+      setState(() {
+        _inputName.text = userMap[0]['name'];
+        _inputLastName.text = userMap[0]['lastname'];
+        _inputAge.text = userMap[0]['age'];
+        _inputIdCard.text = userMap[0]['idCard'];
+        _inputPhone.text = userMap[0]['phone'];
+        _inputDisease.text = userMap[0]['disease'];
+        _inputBNum.text = userMap[0]['bNumber'];
+        _inputBMoo.text = userMap[0]['bMoo'];
+        _inputBSoy.text = userMap[0]['bSoy'];
+        _inputBRoad.text = userMap[0]['bRoad'];
+        _inputBTambon.text = userMap[0]['bTambon'];
+        _inputBAmpher.text = userMap[0]['bAmphur'];
+        _inputBJangwat.text = userMap[0]['bJangwat'];
+        _inputBZip.text = userMap[0]['bZip'];
+      });
+      // ---------
+      stu = true;
+      prefs.setBool('myEdit1', stu);
+    }
+  }
+
+  //End -- getShowData From DB
 
   // Make Data to Map
   _perData() {
@@ -47,7 +95,6 @@ class _MainRegisterState extends State<MainRegister> {
     String inputIdCard = _inputIdCard.text;
     String inputPhone = _inputPhone.text;
     String inputDisease = _inputDisease.text;
-    String inputMind = _inputMind.text;
     String inputBNum = _inputBNum.text;
     String inputBMoo = _inputBMoo.text;
     String inputBSoy = _inputBSoy.text;
@@ -63,7 +110,6 @@ class _MainRegisterState extends State<MainRegister> {
       "iIdCard": inputIdCard,
       "iPhone": inputPhone,
       "iDisease": inputDisease,
-      "iMind": inputMind,
       "iBNum": inputBNum,
       "iBMoo": inputBMoo,
       "iBSoy": inputBSoy,
@@ -344,26 +390,6 @@ class _MainRegisterState extends State<MainRegister> {
             ),
           ],
         ),
-        Padding(padding: EdgeInsets.all(2)),
-        Row(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: 50,
-              child: TextField(
-                  controller: _inputMind,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "ปัญหาสุขภาพจิต(ถ้ามี)",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-          ],
-        ),
         Padding(padding: EdgeInsets.all(10)),
         Container(
           width: MediaQuery.of(context).size.width * 0.9,
@@ -402,14 +428,6 @@ class _MainRegisterState extends State<MainRegister> {
     );
   }
 
-  String detail;
-
-  @override
-  void initState() {
-    detail = widget.txtDetail;
-    super.initState();
-  }
-
   Widget _boxDetail() {
     return Container(
       width: MediaQuery.of(context).size.width * 0.90,
@@ -427,6 +445,7 @@ class _MainRegisterState extends State<MainRegister> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: widget.cid == null ? false : true,
         title: Text(
           widget.txtTitle != '' ? widget.txtTitle : 'ลงทะเบียนปฏิบัติธรรม',
           style: TextStyles().titleBar,
@@ -577,5 +596,14 @@ class _MainRegisterState extends State<MainRegister> {
         ),
       ),
     );
+  }
+
+  setStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setBool('myEdit1', false);
+      prefs.setBool('myEdit2', false);
+      prefs.setBool('myEdit3', false);
+    });
   }
 }
