@@ -4,6 +4,8 @@ import 'package:amphawan/styles/text_style.dart';
 import 'package:flutter/material.dart';
 
 class MediaPage extends StatefulWidget {
+  final int main;
+  MediaPage({Key key, this.main}) : super(key: key);
   @override
   _MediaPageState createState() => _MediaPageState();
 }
@@ -24,6 +26,7 @@ class _MediaPageState extends State<MediaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: widget.main == 1 ? false : true,
         title: Text(
           'สื่อธรรมะ',
           style: TextStyles().titleBar,

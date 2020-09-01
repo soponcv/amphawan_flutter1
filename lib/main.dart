@@ -1,4 +1,5 @@
 import 'package:amphawan/frontpage/main.dart';
+import 'package:amphawan/view/dhamma/registerDhamma.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       home: frontpage(),
+      routes: {
+        "/frontpage": (_) => new frontpage(),
+      },
     );
   }
 }

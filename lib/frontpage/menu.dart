@@ -8,8 +8,10 @@ import 'package:amphawan/view/information/infor_1.dart';
 import 'package:amphawan/view/information/infor_2.dart';
 import 'package:amphawan/view/information/infor_3.dart';
 import 'package:amphawan/view/information/infor_preparation.dart';
+import 'package:amphawan/view/register/mainRegister.dart';
 import 'package:amphawan/view/sign/main_login.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ListMenu extends StatefulWidget {
   @override
@@ -17,6 +19,7 @@ class ListMenu extends StatefulWidget {
 }
 
 class _ListMenuState extends State<ListMenu> {
+  String name = '', lastname = '';
   TextStyle txt_login = TextStyle(
       fontFamily: FontStyles().fontFamily,
       fontSize: 26,
@@ -25,61 +28,108 @@ class _ListMenuState extends State<ListMenu> {
       fontFamily: FontStyles().fontFamily, fontSize: 18, color: Colors.white);
 
   @override
+  void initState() {
+    // TODO: implement initState
+    getSave();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0.0,
         flexibleSpace: Container(
             decoration: BoxDecoration(
-              image: new DecorationImage(
-                  image: new AssetImage("assets/images/bg/bg.png"),
+              image: DecorationImage(
+                  image: AssetImage("assets/images/bg/bg.png"),
                   fit: BoxFit.cover),
             ),
             child: Column(
               children: <Widget>[
                 Padding(padding: EdgeInsets.only(top: 30)),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => MainLogin()),
-                      );
-                    },
-                    child: Row(children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            width: 42.26,
-                            height: 42.26,
-                            child: Icon(
-                              Icons.person,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                            decoration: new BoxDecoration(
-                              color: Color(0xFFFCC402),
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Color(0xFFFFF4CE),
-                                width: 5.0,
+                name != ''
+                    ? Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: Row(children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                width: 42.26,
+                                height: 42.26,
+                                child: Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                                decoration: new BoxDecoration(
+                                  color: Color(0xFFFCC402),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Color(0xFFFFF4CE),
+                                    width: 5.0,
+                                  ),
+                                ),
                               ),
+                              Padding(padding: EdgeInsets.all(5)),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.75,
+                                child: SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Text(
+                                    name + ' ' + lastname,
+                                    style: txt_login,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ]),
+                      )
+                    : Container(
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainLogin()),
+                            );
+                          },
+                          child: Row(children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Container(
+                                  width: 42.26,
+                                  height: 42.26,
+                                  child: Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                    size: 30,
+                                  ),
+                                  decoration: new BoxDecoration(
+                                    color: Color(0xFFFCC402),
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      color: Color(0xFFFFF4CE),
+                                      width: 5.0,
+                                    ),
+                                  ),
+                                ),
+                                Padding(padding: EdgeInsets.all(10)),
+                                Text(
+                                  'เข้าสู่ระบบ',
+                                  style: txt_login,
+                                ),
+                                Padding(padding: EdgeInsets.all(10)),
+                                Icon(Icons.chevron_right)
+                              ],
                             ),
-                          ),
-                          Padding(padding: EdgeInsets.all(10)),
-                          Text(
-                            'เข้าสู่ระบบ',
-                            style: txt_login,
-                          ),
-                          Padding(padding: EdgeInsets.all(10)),
-                          Icon(Icons.chevron_right)
-                        ],
-                      ),
-                    ]),
-                  ),
-                )
+                          ]),
+                        ),
+                      )
               ],
             )),
       ),
@@ -122,7 +172,18 @@ class _ListMenuState extends State<ListMenu> {
                                 ),
                               ),
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MainRegister(
+                                        cid: '0',
+                                        txtTitle: 'แก้ไขข้อมูล',
+                                        txtDetail: '',
+                                      ),
+                                    ),
+                                  );
+                                },
                                 child: Row(
                                   children: <Widget>[
                                     Icon(
@@ -624,5 +685,13 @@ class _ListMenuState extends State<ListMenu> {
         ),
       ),
     );
+  }
+
+  getSave() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('perName');
+      lastname = prefs.getString('perLastName');
+    });
   }
 }

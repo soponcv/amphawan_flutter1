@@ -27,5 +27,10 @@ class PathAPI {
   String postMember = _base_url + 'member/post';
   String updateMember = _base_url + 'member/update/';
 
+  //ลงทะเบียนปฏิบัติธรรม
+  String getAllRegister = _base_url + 'register';
+  String postRegister = _base_url + 'register/post';
+  String getPerRegister = _base_url + 'register/getPer';
+
   PathAPI() : super();
 }

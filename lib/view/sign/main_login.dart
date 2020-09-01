@@ -1,13 +1,21 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
+import 'package:amphawan/system/pathAPI.dart';
+import 'package:amphawan/view/sign/model/sharedLogin.dart';
 import 'package:amphawan/view/sign/signUp/signUp.dart';
 import 'package:amphawan/view/sign/signInPlatform/signin_facebook.dart';
 import 'package:amphawan/view/sign/signInPlatform/signin_line.dart';
+import 'package:crypto/crypto.dart';
 // import 'package:amphawan/view/sign/signInPlatform/signin_facebook.dart';
 // import 'package:amphawan/view/sign/signInPlatform/signin_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class MainLogin extends StatefulWidget {
   @override
@@ -16,6 +24,38 @@ class MainLogin extends StatefulWidget {
 
 class _MainLoginState extends State<MainLogin> {
   final _formKey = GlobalKey<FormState>();
+  bool u = false;
+  String userN, passW;
+  TextEditingController _inputUsername = TextEditingController();
+  TextEditingController _inputPassword = TextEditingController();
+
+//------ POPUP
+  void _showDialog(String _u) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("! แจ้งเตือน",
+              style: TextStyle(
+                  fontFamily: FontStyles().fontFamily,
+                  color: Colors.redAccent)),
+          content: new Text("กรุณากรอก " + _u + " ให้ครบถ้วน",
+              style: TextStyle(
+                fontFamily: FontStyles().fontFamily,
+              )),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -41,18 +81,33 @@ class _MainLoginState extends State<MainLogin> {
                     width: 1,
                   ),
                   borderRadius: BorderRadius.circular(5)),
-              child: TextField(
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      labelText: "Username",
-                      labelStyle: TextStyles().txtLableLogin,
-                      icon: Icon(
-                        Icons.person_outline,
-                        color: Color(0xFF43C415),
-                      ))),
+              child: TextFormField(
+                controller: _inputUsername,
+                cursorColor: Colors.black,
+                keyboardType: TextInputType.text,
+                style: TextStyle(fontFamily: FontStyles().fontFamily),
+                validator: (val) {
+                  if (val.isEmpty) {
+                    setState(() {
+                      u = false;
+                    });
+                  } else {
+                    setState(() {
+                      u = true;
+                      userN = val;
+                    });
+                  }
+                },
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  labelText: "Username",
+                  labelStyle: TextStyles().txtLableLogin,
+                  icon: Icon(
+                    Icons.person_outline,
+                    color: Color(0xFF43C415),
+                  ),
+                ),
+              ),
             ),
             SizedBox(
               height: 10,
@@ -65,17 +120,35 @@ class _MainLoginState extends State<MainLogin> {
                     width: 1,
                   ),
                   borderRadius: BorderRadius.circular(5)),
-              child: TextField(
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  obscureText: true,
-                  autofocus: false,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      labelText: "Password",
-                      labelStyle: TextStyles().txtLableLogin,
-                      icon: Icon(Icons.lock, color: Color(0xFF43C415)))),
+              child: TextFormField(
+                style: TextStyle(fontFamily: FontStyles().fontFamily),
+                controller: _inputPassword,
+                obscureText: true,
+                autofocus: false,
+                cursorColor: Colors.black,
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  labelText: "Password",
+                  labelStyle: TextStyles().txtLableLogin,
+                  icon: Icon(
+                    Icons.lock,
+                    color: Color(0xFF43C415),
+                  ),
+                ),
+                validator: (val) {
+                  if (val.isEmpty) {
+                    setState(() {
+                      u = false;
+                    });
+                  } else {
+                    setState(() {
+                      u = true;
+                      passW = val;
+                    });
+                  }
+                },
+              ),
             ),
             SizedBox(
               height: 10,
@@ -86,7 +159,23 @@ class _MainLoginState extends State<MainLogin> {
               children: <Widget>[
                 RaisedButton(
                   color: Color(0xFF52B64F),
-                  onPressed: () {},
+                  onPressed: () {
+                    if (_formKey.currentState.validate()) {
+                      if (u == false) {
+                        _showDialog("Username และ Password");
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SetSignIn(
+                              username: userN,
+                              password: passW,
+                            ),
+                          ),
+                        );
+                      }
+                    }
+                  },
                   child: Text(
                     'เข้าสู่ระบบ',
                     style: TextStyles().txtBottomLogin,

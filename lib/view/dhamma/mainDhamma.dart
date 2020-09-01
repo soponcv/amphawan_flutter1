@@ -7,6 +7,8 @@ import 'package:amphawan/view/dhamma/dhammaTwo.dart';
 import 'package:flutter/material.dart';
 
 class DhammaPage extends StatefulWidget {
+  final int main;
+  DhammaPage({Key key, this.main}) : super(key: key);
   @override
   _DhammaPageState createState() => _DhammaPageState();
 }
@@ -16,6 +18,7 @@ class _DhammaPageState extends State<DhammaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: widget.main == 1 ? false : true,
         title: Text(
           'สมัครปฏิบัติธรรม',
           style: TextStyles().titleBar,

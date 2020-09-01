@@ -4,6 +4,8 @@ import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
 import 'package:amphawan/system/pathAPI.dart';
+import 'package:amphawan/view/dhamma/registerDhammaResult.dart';
+import 'package:amphawan/view/register/loadRegister.dart';
 import 'package:amphawan/view/register/model/listResgister.dart';
 import 'package:flutter/material.dart';
 
@@ -52,8 +54,7 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
   fetchRegister(http.Client client) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      username = prefs.getString('myUsername');
-      stu = prefs.getBool('myEdit3');
+      username = prefs.getString('perUsername');
     });
     final response = await client.get(PathAPI().getMember + username);
     List<dynamic> userMap = jsonDecode(response.body);
@@ -67,9 +68,6 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
       _inputLife.text = userMap[0]['life'];
       _inputAllure.text = userMap[0]['allure'];
     });
-    // ---------
-    // stu = true;
-    // prefs.setBool('myEdit3', stu);
   }
 
   // Make Data to Map
@@ -101,12 +99,55 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
     postDRegister(http.Client(), body); // Send Data To API(PHP)
   }
 
+  void _showDialogError() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("! Error",
+              style: TextStyle(
+                  fontFamily: FontStyles().fontFamily,
+                  color: Colors.redAccent)),
+          content: new Text("มีปัญหาในการบันทึกข้อมูล",
+              style: TextStyle(
+                fontFamily: FontStyles().fontFamily,
+              )),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<String> postDRegister(http.Client client, jsonMap) async {
     final response = await client.post(PathAPI().updateMember,
         headers: {"Content-Type": "application/json"}, body: jsonMap);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
+    var body = json.decode(response.body);
+    if (body['status'] == 'true') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoadRegister(
+            cid: widget.cid,
+            status: true,
+          ),
+        ),
+      );
+    } else {
+      _showDialogError();
+    }
   }
+
+  _roadMap(bool status) {}
 
   Widget formResgister() {
     return Column(
@@ -313,7 +354,7 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
                   // );
                 },
                 child: Text(
-                  'สมัคร',
+                  widget.cid != '0' ? 'สมัคร' : 'ตกลง',
                   style: TextStyle(
                       fontFamily: FontStyles().fontFamily,
                       color: Colors.white,
@@ -345,6 +386,7 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           widget.txtTitle != '' ? widget.txtTitle : 'ลงทะเบียนปฏิบัติธรรม',
           style: TextStyles().titleBar,

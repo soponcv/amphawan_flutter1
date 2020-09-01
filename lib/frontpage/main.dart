@@ -27,9 +27,13 @@ class _frontpageState extends State<frontpage> {
   int _selectedIndex = 0;
   final widgetOptions = [
     HomePage(),
-    ActivityPage(),
-    DhammaPage(),
-    MediaPage(),
+    ActivityPage(
+      main: 1,
+    ),
+    DhammaPage(
+      main: 1,
+    ),
+    MediaPage(main: 1),
     ListMenu(),
   ];
 

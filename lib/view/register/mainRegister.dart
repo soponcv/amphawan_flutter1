@@ -26,6 +26,7 @@ class _MainRegisterState extends State<MainRegister> {
   String detail;
   String username;
   bool stu = false;
+  int _selectedIndex = 0;
 
   //Start-----Text Input
   TextEditingController _inputName = TextEditingController();
@@ -57,32 +58,26 @@ class _MainRegisterState extends State<MainRegister> {
   fetchRegister(http.Client client) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      username = prefs.getString('myUsername');
-      stu = prefs.getBool('myEdit1');
+      username = prefs.getString('perUsername');
     });
-    if (!stu) {
-      final response = await client.get(PathAPI().getMember + username);
-      List<dynamic> userMap = jsonDecode(response.body);
-      setState(() {
-        _inputName.text = userMap[0]['name'];
-        _inputLastName.text = userMap[0]['lastname'];
-        _inputAge.text = userMap[0]['age'];
-        _inputIdCard.text = userMap[0]['idCard'];
-        _inputPhone.text = userMap[0]['phone'];
-        _inputDisease.text = userMap[0]['disease'];
-        _inputBNum.text = userMap[0]['bNumber'];
-        _inputBMoo.text = userMap[0]['bMoo'];
-        _inputBSoy.text = userMap[0]['bSoy'];
-        _inputBRoad.text = userMap[0]['bRoad'];
-        _inputBTambon.text = userMap[0]['bTambon'];
-        _inputBAmpher.text = userMap[0]['bAmphur'];
-        _inputBJangwat.text = userMap[0]['bJangwat'];
-        _inputBZip.text = userMap[0]['bZip'];
-      });
-      // ---------
-      stu = true;
-      prefs.setBool('myEdit1', stu);
-    }
+    final response = await client.get(PathAPI().getMember + username);
+    List<dynamic> userMap = jsonDecode(response.body);
+    setState(() {
+      _inputName.text = userMap[0]['name'];
+      _inputLastName.text = userMap[0]['lastname'];
+      _inputAge.text = userMap[0]['age'];
+      _inputIdCard.text = userMap[0]['idCard'];
+      _inputPhone.text = userMap[0]['phone'];
+      _inputDisease.text = userMap[0]['disease'];
+      _inputBNum.text = userMap[0]['bNumber'];
+      _inputBMoo.text = userMap[0]['bMoo'];
+      _inputBSoy.text = userMap[0]['bSoy'];
+      _inputBRoad.text = userMap[0]['bRoad'];
+      _inputBTambon.text = userMap[0]['bTambon'];
+      _inputBAmpher.text = userMap[0]['bAmphur'];
+      _inputBJangwat.text = userMap[0]['bJangwat'];
+      _inputBZip.text = userMap[0]['bZip'];
+    });
   }
 
   //End -- getShowData From DB
@@ -104,6 +99,7 @@ class _MainRegisterState extends State<MainRegister> {
     String inputBJangwat = _inputBJangwat.text;
     String inputBZip = _inputBZip.text;
     Map map = {
+      "username": username,
       "iName": inputName,
       "iLastName": inputLastName,
       "iAge": inputAge,
@@ -125,306 +121,309 @@ class _MainRegisterState extends State<MainRegister> {
   }
 
   Widget formResgister() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Row(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.44,
-              height: 50,
-              child: TextField(
-                  controller: _inputName,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "ชื่อ",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-            Padding(padding: EdgeInsets.all(2)),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.44,
-              height: 50,
-              child: TextField(
-                  controller: _inputLastName,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "สกุล",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(2)),
-        Row(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.15,
-              height: 50,
-              child: TextField(
-                  maxLength: 2,
-                  controller: _inputAge,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    counterText: '',
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "อายุ",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-            Padding(padding: EdgeInsets.all(2)),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.73,
-              height: 50,
-              child: TextField(
-                  maxLength: 13,
-                  controller: _inputIdCard,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    counterText: '',
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "หมายเลขบัตรประชาชน (13 หลัก)",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(2)),
-        Row(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.31,
-              height: 50,
-              child: TextField(
-                  controller: _inputBNum,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "บ้านเลขที่",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-            Padding(padding: EdgeInsets.all(2)),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.2,
-              height: 50,
-              child: TextField(
-                  maxLength: 2,
-                  controller: _inputBMoo,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    counterText: '',
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "หมู่ที่",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-            Padding(padding: EdgeInsets.all(2)),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.35,
-              height: 50,
-              child: TextField(
-                  controller: _inputBSoy,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "ตรอก/ซอย",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(2)),
-        Row(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.44,
-              height: 50,
-              child: TextField(
-                  controller: _inputBRoad,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "ถนน",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-            Padding(padding: EdgeInsets.all(2)),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.44,
-              height: 50,
-              child: TextField(
-                  controller: _inputBTambon,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "ตำบล",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(2)),
-        Row(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.44,
-              height: 50,
-              child: TextField(
-                  controller: _inputBAmpher,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "อำเภอ",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-            Padding(padding: EdgeInsets.all(2)),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.44,
-              height: 50,
-              child: TextField(
-                  controller: _inputBJangwat,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "จังหวัด",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(2)),
-        Row(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.44,
-              height: 50,
-              child: TextField(
-                  maxLength: 5,
-                  controller: _inputBZip,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    counterText: "",
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "รหัสไปรษณีย์",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-            Padding(padding: EdgeInsets.all(2)),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.44,
-              height: 50,
-              child: TextField(
-                  maxLength: 10,
-                  controller: _inputPhone,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.phone,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    counterText: "",
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "เบอร์ติดต่อ",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(2)),
-        Row(
-          children: <Widget>[
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: 50,
-              child: TextField(
-                  controller: _inputDisease,
-                  cursorColor: Colors.black,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: FontStyles().fontFamily),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xFFCECECE))),
-                    labelText: "โรคประจำตัว",
-                    labelStyle: TextStyles().txtLableRegister,
-                  )),
-            ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.all(10)),
-        Container(
-          width: MediaQuery.of(context).size.width * 0.9,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Row(
             children: <Widget>[
-              RaisedButton(
-                color: Color(0xFFF3A65A),
-                onPressed: () {
-                  // _perData();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => MainRegisterTwo(
-                              cid: widget.cid,
-                              txtTitle: widget.txtTitle,
-                              txtDetail: detail,
-                              map: _perData(),
-                            )),
-                  );
-                },
-                child: Text(
-                  'ถัดไป',
-                  style: TextStyle(
-                      fontFamily: FontStyles().fontFamily,
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.normal),
-                ),
-              )
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.44,
+                height: 50,
+                child: TextFormField(
+                    controller: _inputName,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "ชื่อ",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+              Padding(padding: EdgeInsets.all(2)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.44,
+                height: 50,
+                child: TextFormField(
+                    controller: _inputLastName,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "สกุล",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
             ],
           ),
-        ),
-      ],
+          Padding(padding: EdgeInsets.all(2)),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.15,
+                height: 50,
+                child: TextFormField(
+                    maxLength: 2,
+                    controller: _inputAge,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      counterText: '',
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "อายุ",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+              Padding(padding: EdgeInsets.all(2)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.73,
+                height: 50,
+                child: TextFormField(
+                    maxLength: 13,
+                    controller: _inputIdCard,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      counterText: '',
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "หมายเลขบัตรประชาชน (13 หลัก)",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+            ],
+          ),
+          Padding(padding: EdgeInsets.all(2)),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.31,
+                height: 50,
+                child: TextFormField(
+                    controller: _inputBNum,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "บ้านเลขที่",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+              Padding(padding: EdgeInsets.all(2)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.2,
+                height: 50,
+                child: TextFormField(
+                    maxLength: 2,
+                    controller: _inputBMoo,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      counterText: '',
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "หมู่ที่",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+              Padding(padding: EdgeInsets.all(2)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.35,
+                height: 50,
+                child: TextFormField(
+                    controller: _inputBSoy,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "ตรอก/ซอย",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+            ],
+          ),
+          Padding(padding: EdgeInsets.all(2)),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.44,
+                height: 50,
+                child: TextFormField(
+                    controller: _inputBRoad,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "ถนน",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+              Padding(padding: EdgeInsets.all(2)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.44,
+                height: 50,
+                child: TextFormField(
+                    controller: _inputBTambon,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "ตำบล",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+            ],
+          ),
+          Padding(padding: EdgeInsets.all(2)),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.44,
+                height: 50,
+                child: TextFormField(
+                    controller: _inputBAmpher,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "อำเภอ",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+              Padding(padding: EdgeInsets.all(2)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.44,
+                height: 50,
+                child: TextFormField(
+                    controller: _inputBJangwat,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "จังหวัด",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+            ],
+          ),
+          Padding(padding: EdgeInsets.all(2)),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.44,
+                height: 50,
+                child: TextFormField(
+                    maxLength: 5,
+                    controller: _inputBZip,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      counterText: "",
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "รหัสไปรษณีย์",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+              Padding(padding: EdgeInsets.all(2)),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.44,
+                height: 50,
+                child: TextFormField(
+                    maxLength: 10,
+                    controller: _inputPhone,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.phone,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      counterText: "",
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "เบอร์ติดต่อ",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+            ],
+          ),
+          Padding(padding: EdgeInsets.all(2)),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: 50,
+                child: TextFormField(
+                    controller: _inputDisease,
+                    cursorColor: Colors.black,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontFamily: FontStyles().fontFamily),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFFCECECE))),
+                      labelText: "โรคประจำตัว",
+                      labelStyle: TextStyles().txtLableRegister,
+                    )),
+              ),
+            ],
+          ),
+          Padding(padding: EdgeInsets.all(10)),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                RaisedButton(
+                  color: Color(0xFFF3A65A),
+                  onPressed: () {
+                    // _perData();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MainRegisterTwo(
+                                cid: widget.cid,
+                                txtTitle: widget.txtTitle,
+                                txtDetail: detail,
+                                map: _perData(),
+                              )),
+                    );
+                  },
+                  child: Text(
+                    'ถัดไป',
+                    style: TextStyle(
+                        fontFamily: FontStyles().fontFamily,
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 

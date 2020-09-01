@@ -58,6 +58,6 @@ class _PostSignUpState extends State<PostSignUp> {
 saveUser(String user) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final value = user;
-  prefs.setString('myUsername', value);
+  prefs.setString('perUsername', value);
   print('saved $value');
 }

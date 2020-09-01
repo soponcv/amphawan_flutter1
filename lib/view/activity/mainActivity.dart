@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ActivityPage extends StatefulWidget {
+  final int main;
+  ActivityPage({Key key, this.main}) : super(key: key);
   @override
   _ActivityPageState createState() => _ActivityPageState();
 }
@@ -36,6 +38,7 @@ class _ActivityPageState extends State<ActivityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: widget.main == 1 ? false : true,
         title: Text(
           'กิจกรรมบุญ',
           style: TextStyles().titleBar,

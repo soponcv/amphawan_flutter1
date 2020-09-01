@@ -246,7 +246,7 @@ class DhammaList2 extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => MainRegister(
-                                            cid: dhamma[index].cid,
+                                            cid: dhamma[index].id,
                                             txtTitle: 'สมัคร',
                                             txtDetail:
                                                 'ปฏิบัติธรรม รอบวันโกนชนวันโกน \n' +
