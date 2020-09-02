@@ -59,6 +59,8 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
+    ## NOPIC
+    - assets/images/nopic.png
     ## BG
     - assets/images/bg/bg.png
     - assets/images/bg/home_bg.png

@@ -3,6 +3,7 @@ import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
 import 'package:amphawan/view/dhamma/registerDhammaResult.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegDhamma extends StatefulWidget {
   final int dhamma_id;
@@ -112,6 +113,16 @@ class _RegDhammaState extends State<RegDhamma> {
                                     : Colors.grey,
                                 onPressed: () {
                                   if (monVall) {
+                                    setState(() {
+                                      Fluttertoast.showToast(
+                                          msg: "ลงทะเบียนสำเร็จ",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 2,
+                                          backgroundColor: Colors.green,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                    });
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

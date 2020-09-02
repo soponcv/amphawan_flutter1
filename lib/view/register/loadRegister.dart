@@ -5,6 +5,7 @@ import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/system/pathAPI.dart';
 import 'package:amphawan/view/dhamma/registerDhamma.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -52,6 +53,16 @@ class _LoadRegisterState extends State<LoadRegister> {
         );
       }
     } else {
+      setState(() {
+        Fluttertoast.showToast(
+            msg: "บันทึกข้อมูล เสร็จสิ้น",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      });
       Navigator.push(
         context,
         MaterialPageRoute(

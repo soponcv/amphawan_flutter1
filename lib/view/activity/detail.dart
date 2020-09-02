@@ -106,8 +106,39 @@ class _DeatilActivityState extends State<DeatilActivity> {
                         if (snapshot.data != null) {
                           List<ListEventImg> list = snapshot.data;
                           List<dynamic> listImages = list
-                              .map((i) => Image.network(
-                                    PathAPI().base_url + i.file,
+                              .map((i) => i.file != ''
+                                  ? Image.network(
+                                      PathAPI().base_url + i.file,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image(
+                                      image:
+                                          AssetImage('assets/images/nopic.png'),
+                                      fit: BoxFit.cover,
+                                    ))
+                              .toList();
+                          return Carousel(
+                            images: listImages,
+                            autoplay: true,
+                            animationDuration: Duration(milliseconds: 300),
+                            dotSize: 3.0,
+                            dotIncreaseSize: 2.0,
+                            dotColor: Colors.white,
+                            dotBgColor: Colors.grey[800].withOpacity(0.1),
+                            showIndicator: true,
+                            indicatorBgPadding: 10.0,
+                            boxFit: BoxFit.cover,
+                            radius: Radius.circular(0.0),
+                            overlayShadow: false,
+                            overlayShadowColors: Colors.black,
+                            overlayShadowSize: 0.5,
+                          );
+                        } else {
+                          List<String> list = ['assets/images/nopic.png'];
+                          List<dynamic> listImages = list
+                              .map((i) => Image(
+                                    image:
+                                        AssetImage('assets/images/nopic.png'),
                                     fit: BoxFit.cover,
                                   ))
                               .toList();
@@ -127,8 +158,6 @@ class _DeatilActivityState extends State<DeatilActivity> {
                             overlayShadowColors: Colors.black,
                             overlayShadowSize: 0.5,
                           );
-                        } else {
-                          return noData();
                         }
                         break;
                     }

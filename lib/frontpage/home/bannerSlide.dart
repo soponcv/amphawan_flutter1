@@ -78,17 +78,28 @@ class _WidgetBannerState extends State<WidgetBanner> {
                                                     .launchInBrowser(item.url)
                                                 : null;
                                           },
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.8,
-                                            child: Image.network(
-                                              PathAPI().base_url +
-                                                  item.display_image,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
+                                          child: item.display_image != ''
+                                              ? Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.8,
+                                                  child: Image.network(
+                                                    PathAPI().base_url +
+                                                        item.display_image,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                )
+                                              : Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.8,
+                                                  child: Image(
+                                                    image: AssetImage(
+                                                        'assets/images/nopic.png'),
+                                                    fit: BoxFit.cover,
+                                                  )),
                                         ),
                                         // Image.network(item, fit: BoxFit.cover, width: 1000.0),
                                         Positioned(

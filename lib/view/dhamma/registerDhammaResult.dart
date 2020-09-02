@@ -130,6 +130,12 @@ class WidgetSuccess extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemBuilder: (context, index) {
+        String txt;
+        if (result[index].cid == 4) {
+          txt = result[index].cate_name + ' ' + result[index].subject;
+        } else {
+          txt = result[index].cate_name;
+        }
         return Container(
           child: Column(
             children: [
@@ -162,7 +168,7 @@ class WidgetSuccess extends StatelessWidget {
                     Container(
                       width: MediaQuery.of(context).size.width * .63,
                       child: Text(
-                        result[index].cate_name + ' ' + result[index].subject,
+                        txt,
                         style: txtDetail,
                         overflow: TextOverflow.fade,
                         // softWrap: false,

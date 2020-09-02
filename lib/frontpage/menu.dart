@@ -19,7 +19,7 @@ class ListMenu extends StatefulWidget {
 }
 
 class _ListMenuState extends State<ListMenu> {
-  String name = '', lastname = '';
+  String name, lastname;
   TextStyle txt_login = TextStyle(
       fontFamily: FontStyles().fontFamily,
       fontSize: 26,
@@ -50,7 +50,7 @@ class _ListMenuState extends State<ListMenu> {
             child: Column(
               children: <Widget>[
                 Padding(padding: EdgeInsets.only(top: 30)),
-                name != ''
+                name != null
                     ? Container(
                         width: MediaQuery.of(context).size.width * 0.9,
                         child: Row(children: <Widget>[
@@ -148,74 +148,62 @@ class _ListMenuState extends State<ListMenu> {
                   child: Column(
                     children: <Widget>[
                       Padding(padding: EdgeInsets.all(5)),
-                      Container(
-                        height: 50,
-                        child: Card(
-                          color: Color(0xFFD2B12D),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              InkWell(
-                                onTap: () {},
+                      name != null
+                          ? Container(
+                              height: 50,
+                              child: Card(
+                                color: Color(0xFFD2B12D),
                                 child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
-                                    Icon(
-                                      Icons.home,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      "หน้าแรก",
-                                      style: txt_teb,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MainRegister(
-                                        cid: '0',
-                                        txtTitle: 'แก้ไขข้อมูล',
-                                        txtDetail: '',
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MainRegister(
+                                              cid: 'edit',
+                                              txtTitle: 'แก้ไขข้อมูล',
+                                              txtDetail: '',
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.person,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            "ข้อมูลผู้ใช้",
+                                            style: txt_teb,
+                                          )
+                                        ],
                                       ),
                                     ),
-                                  );
-                                },
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.person,
-                                      color: Colors.white,
+                                    InkWell(
+                                      onTap: () {},
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.settings,
+                                            color: Colors.white,
+                                          ),
+                                          Text(
+                                            "ตั้งค่า",
+                                            style: txt_teb,
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                    Text(
-                                      "ข้อมูลผู้ใช้",
-                                      style: txt_teb,
-                                    )
                                   ],
                                 ),
                               ),
-                              InkWell(
-                                onTap: () {},
-                                child: Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.settings,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      "ตั้งค่า",
-                                      style: txt_teb,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                            )
+                          : Container(),
                       Padding(padding: EdgeInsets.all(5)),
                       Container(
                         height: 40,
@@ -667,7 +655,7 @@ class _ListMenuState extends State<ListMenu> {
                                   ),
                                   Text(
                                     "ส่งความประทับใจ",
-                                    style: TextStyles().appBar,
+                                    style: TextStyles().txt_appBar,
                                   )
                                 ],
                               ),
@@ -678,6 +666,14 @@ class _ListMenuState extends State<ListMenu> {
                     ],
                   ),
                 ),
+              ),
+              Padding(padding: EdgeInsets.all(5)),
+              Text(
+                'Power By CityVariety Corporation Co.,Ltd. © 2020',
+                style: TextStyle(
+                    fontFamily: FontStyles().fontFamily,
+                    fontSize: 12,
+                    color: Color(0xFFACACAC)),
               ),
               Padding(padding: EdgeInsets.all(20)),
             ],

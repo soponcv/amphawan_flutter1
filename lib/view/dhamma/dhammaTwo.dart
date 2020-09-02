@@ -7,6 +7,7 @@ import 'package:amphawan/system/errorText.dart';
 import 'package:amphawan/system/pathAPI.dart';
 import 'package:amphawan/system/timeTH.dart';
 import 'package:amphawan/view/dhamma/deailDhamma.dart';
+import 'package:amphawan/view/dhamma/model/checkYourSignIn.dart';
 import 'package:amphawan/view/dhamma/model/listDhamma.dart';
 import 'package:amphawan/view/register/mainRegister.dart';
 import 'package:flutter/material.dart';
@@ -236,7 +237,7 @@ class DhammaList2 extends StatelessWidget {
                             ],
                           ),
                         ),
-                        int.parse(dhamma[index].cid) > 0
+                        int.parse(dhamma[index].num_person) > 0
                             ? Container(
                                 width: 90,
                                 child: RaisedButton(
@@ -245,7 +246,7 @@ class DhammaList2 extends StatelessWidget {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => MainRegister(
+                                        builder: (context) => CheckSignInDhamma(
                                             cid: dhamma[index].id,
                                             txtTitle: 'สมัคร',
                                             txtDetail:

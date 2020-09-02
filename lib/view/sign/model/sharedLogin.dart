@@ -11,8 +11,9 @@ import 'package:http/http.dart' as http;
 class SetSignIn extends StatefulWidget {
   final String username;
   final String password;
+  final String email;
 
-  SetSignIn({Key key, @required this.username, this.password})
+  SetSignIn({Key key, @required this.username, this.password, this.email})
       : super(key: key);
 
   @override
@@ -22,25 +23,33 @@ class SetSignIn extends StatefulWidget {
 class _SetSignInState extends State<SetSignIn> {
   @override
   void initState() {
-    fetchSignIn(http.Client(), widget.username, widget.password);
+    fetchSignIn(http.Client(), widget.username, widget.password, widget.email);
     super.initState();
   }
 
   //Start -- getShowData From DB
-  fetchSignIn(http.Client client, user, pass) async {
+  fetchSignIn(http.Client client, user, pass, email) async {
     final response = await client.get(PathAPI().getMember + user);
     if (response.statusCode == 200) {
       var body = json.decode(response.body);
 
       String passMd5 = md5.convert(utf8.encode(pass)).toString();
       if (body.toString() != '[]') {
-        if (user == body[0]['username'] && passMd5 == body[0]['password']) {
-          SetLogin()
-              .save(body[0]['username'], body[0]['name'], body[0]['lastname']);
+        if (user == body[0]['username'] &&
+            passMd5 == body[0]['password'] &&
+            widget.email == null) {
+          SetLogin().save(body[0]['username'], body[0]['name'],
+              body[0]['lastname'], body[0]['email'], body[0]['status']);
           Navigator.pushReplacementNamed(
             context,
             '/frontpage',
           );
+        } else if (user == body[0]['username'] &&
+            email == body[0]['email'] &&
+            widget.password == null) {
+          SetLogin().save(body[0]['username'], body[0]['name'],
+              body[0]['lastname'], body[0]['email'], body[0]['status']);
+          Navigator.pop(context);
         }
       } else {
         _showDialogSignIn();
@@ -90,10 +99,13 @@ class _SetSignInState extends State<SetSignIn> {
 }
 
 class SetLogin {
-  save(String username, String name, String lastname) async {
+  save(String username, String name, String lastname, String email,
+      String status) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('perUsername', username);
     prefs.setString('perName', name);
     prefs.setString('perLastName', lastname);
+    prefs.setString('perEmail', email);
+    prefs.setString('perStatus', status);
   }
 }

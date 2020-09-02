@@ -47,7 +47,6 @@ class _MainRegisterState extends State<MainRegister> {
   //End-----Text Input
   @override
   void initState() {
-    setStatus();
     detail = widget.txtDetail;
     // ----- SET VALUE ------
     super.initState();
@@ -98,6 +97,7 @@ class _MainRegisterState extends State<MainRegister> {
     String inputBAmpher = _inputBAmpher.text;
     String inputBJangwat = _inputBJangwat.text;
     String inputBZip = _inputBZip.text;
+    save(inputName, inputLastName);
     Map map = {
       "username": username,
       "iName": inputName,
@@ -398,12 +398,11 @@ class _MainRegisterState extends State<MainRegister> {
                 RaisedButton(
                   color: Color(0xFFF3A65A),
                   onPressed: () {
-                    // _perData();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => MainRegisterTwo(
-                                cid: widget.cid,
+                                cid: widget.cid == 'edit' ? '0' : widget.cid,
                                 txtTitle: widget.txtTitle,
                                 txtDetail: detail,
                                 map: _perData(),
@@ -445,6 +444,20 @@ class _MainRegisterState extends State<MainRegister> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: widget.cid == null ? false : true,
+        leading: widget.cid == 'edit'
+            ? IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.green),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            : IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.green),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.pop(context);
+                },
+              ),
         title: Text(
           widget.txtTitle != '' ? widget.txtTitle : 'ลงทะเบียนปฏิบัติธรรม',
           style: TextStyles().titleBar,
@@ -597,12 +610,9 @@ class _MainRegisterState extends State<MainRegister> {
     );
   }
 
-  setStatus() async {
+  save(String name, String lastname) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.setBool('myEdit1', false);
-      prefs.setBool('myEdit2', false);
-      prefs.setBool('myEdit3', false);
-    });
+    prefs.setString('perName', name);
+    prefs.setString('perLastName', lastname);
   }
 }
