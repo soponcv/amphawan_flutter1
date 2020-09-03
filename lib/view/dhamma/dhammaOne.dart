@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class DhammaOne extends StatelessWidget {
+  Timer _timer;
   // start---------------- Get Data From DATABASES
   Future<List<ListDhamma1>> fetchDhamma1(http.Client client) async {
     final response = await client.get(PathAPI().getDhamma + '2');
@@ -54,10 +55,16 @@ class DhammaOne extends StatelessWidget {
                               width: 35,
                             ),
                             Padding(padding: EdgeInsets.all(0.5)),
-                            Text(
-                              'ปฏิบัติธรรม รอบ 3 วัน (ศุกร์ เสาร์ อาทิตย์)',
-                              style: TextDhamma().txtTopic,
-                            )
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(
+                                  'ปฏิบัติธรรม รอบ 3 วัน (ศุกร์ เสาร์ อาทิตย์)',
+                                  style: TextDhamma().txtTopic,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),

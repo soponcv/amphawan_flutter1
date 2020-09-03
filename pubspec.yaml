@@ -62,25 +62,15 @@ flutter:
     ## NOPIC
     - assets/images/nopic.png
     ## BG
-    - assets/images/bg/bg.png
-    - assets/images/bg/home_bg.png
+    - assets/images/bg/
     ##INFROMATION
-    - assets/images/information/amphawan.png
-    - assets/images/information/amphawan-1.png 
-    - assets/images/information/mang.png
-    - assets/images/information/jd.png
-    - assets/images/information/wat1.png
-    - assets/images/information/reparation.png
+    - assets/images/information/
     ##LOGO
     - assets/images/logo/
     ##ICON
     - assets/images/icon/
     ##for test
-    - assets/images/tst/tst_banner.png
-    - assets/images/tst/tst_2.png
-    - assets/images/tst/tst_3.png
-    - assets/images/tst/tst_4.png
-    - assets/images/tst/tst_5.png
+    - assets/images/tst/
 
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see

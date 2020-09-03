@@ -55,10 +55,16 @@ class DhammaTwo extends StatelessWidget {
                               width: 35,
                             ),
                             Padding(padding: EdgeInsets.all(0.5)),
-                            Text(
-                              'ปฏิบัติธรรม รอบวันโกนชนวันโกน',
-                              style: TextDhamma().txtTopic,
-                            )
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.7,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Text(
+                                  'ปฏิบัติธรรม รอบวันโกนชนวันโกน',
+                                  style: TextDhamma().txtTopic,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),

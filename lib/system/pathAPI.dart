@@ -32,5 +32,11 @@ class PathAPI {
   String postRegister = _base_url + 'register/post';
   String getPerRegister = _base_url + 'register/getPer';
 
+  //ความประทับใจ
+  String getAllImpression = _base_url + 'impression';
+  String getImpressionImg = _base_url + 'impression/get/';
+  String getImpressionComment = _base_url + 'impression/comment/';
+  String postComment = _base_url + 'impression/postcomment';
+
   PathAPI() : super();
 }
