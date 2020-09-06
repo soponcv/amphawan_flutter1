@@ -19,6 +19,7 @@ class ImComment extends StatefulWidget {
 
 class _ImCommentState extends State<ImComment> {
   TextEditingController _inputComment = TextEditingController();
+  FocusNode f1 = FocusNode();
   String username;
 
   @override
@@ -66,21 +67,25 @@ class _ImCommentState extends State<ImComment> {
   }
 
   void _settingModalBottomSheet(context) {
+    FocusScope.of(context).requestFocus(f1);
     showModalBottomSheet(
         context: context,
+        // isScrollControlled: true,
         builder: (BuildContext bc) {
-          return Container(
-            child: new Wrap(
-              children: <Widget>[
-                Padding(padding: EdgeInsets.all(5)),
-                Container(
-                  padding: EdgeInsets.only(left: 5, right: 5),
-                  child: Form(
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Container(
+              padding: EdgeInsets.only(left: 15, right: 15, top: 5),
+              child: Column(
+                children: <Widget>[
+                  Form(
                     child: TextFormField(
+                      focusNode: f1,
                       controller: _inputComment,
-                      maxLines: 4,
+                      maxLines: 3,
                       cursorColor: Colors.black,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.multiline,
                       style: TextStyle(fontFamily: FontStyles().fontFamily),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -90,31 +95,31 @@ class _ImCommentState extends State<ImComment> {
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 5, right: 5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      RaisedButton(
-                        color: Colors.green,
-                        onPressed: () {
-                          postComment(http.Client(), _inputComment.text);
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          'ตกลง',
-                          style: TextStyle(
-                              fontFamily: FontStyles().fontFamily,
-                              color: Colors.white),
-                        ),
-                      )
-                    ],
+                  Container(
+                    padding: EdgeInsets.only(left: 5, right: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        RaisedButton(
+                          color: Colors.green,
+                          onPressed: () {
+                            postComment(http.Client(), _inputComment.text);
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'ตกลง',
+                            style: TextStyle(
+                                fontFamily: FontStyles().fontFamily,
+                                color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                Padding(padding: EdgeInsets.all(10)),
-              ],
+                  Padding(padding: EdgeInsets.all(10)),
+                ],
+              ),
             ),
           );
         });

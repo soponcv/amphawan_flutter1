@@ -115,7 +115,9 @@ class _DetailImpressionState extends State<DetailImpression> {
                                       padding: EdgeInsets.only(
                                           right: 5, bottom: 1, top: 1, left: 5),
                                       child: Text(
-                                        widget.like.toString(),
+                                        widget.like > 99
+                                            ? '99+'
+                                            : widget.like.toString(),
                                         style: TextStyle(
                                             fontFamily: FontStyles().fontFamily,
                                             fontSize: 10,
@@ -161,7 +163,9 @@ class _DetailImpressionState extends State<DetailImpression> {
                                     padding: EdgeInsets.only(
                                         right: 5, bottom: 1, top: 1, left: 5),
                                     child: Text(
-                                      widget.comment.toString(),
+                                      widget.comment > 99
+                                          ? '99+'
+                                          : widget.comment.toString(),
                                       style: TextStyle(
                                           fontFamily: FontStyles().fontFamily,
                                           fontSize: 10,
@@ -291,129 +295,131 @@ class _DetailImpressionState extends State<DetailImpression> {
           image: DecorationImage(
               image: AssetImage('assets/images/bg/bg.png'), fit: BoxFit.cover),
         ),
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              Container(
-                height: MediaQuery.of(context).size.height / 4,
-                child: FutureBuilder<List<ListImpressionImg>>(
-                  future: fetchImImg(http.Client()),
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.none:
-                        return noConnect();
-                      case ConnectionState.waiting:
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      case ConnectionState.active:
-                        break;
-                      case ConnectionState.done:
-                        if (snapshot.data != null) {
-                          List<ListImpressionImg> list = snapshot.data;
-                          List<dynamic> listImages = list
-                              .map((i) => i.file != ''
-                                  ? Image.network(
-                                      PathAPI().base_url + i.file,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Image(
+        child: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.height / 4,
+                  child: FutureBuilder<List<ListImpressionImg>>(
+                    future: fetchImImg(http.Client()),
+                    builder: (context, snapshot) {
+                      switch (snapshot.connectionState) {
+                        case ConnectionState.none:
+                          return noConnect();
+                        case ConnectionState.waiting:
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        case ConnectionState.active:
+                          break;
+                        case ConnectionState.done:
+                          if (snapshot.data != null) {
+                            List<ListImpressionImg> list = snapshot.data;
+                            List<dynamic> listImages = list
+                                .map((i) => i.file != ''
+                                    ? Image.network(
+                                        PathAPI().base_url + i.file,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image(
+                                        image: AssetImage(
+                                            'assets/images/nopic.png'),
+                                        fit: BoxFit.cover,
+                                      ))
+                                .toList();
+                            return Carousel(
+                              images: listImages,
+                              autoplay: true,
+                              animationDuration: Duration(milliseconds: 1000),
+                              dotSize: 3.0,
+                              dotIncreaseSize: 3.0,
+                              dotColor: Colors.white,
+                              dotIncreasedColor: Color(0xFF07930A),
+                              dotBgColor: Colors.grey[800].withOpacity(0.1),
+                              showIndicator: true,
+                              indicatorBgPadding: 10.0,
+                              boxFit: BoxFit.cover,
+                              radius: Radius.circular(0.0),
+                              overlayShadow: false,
+                              overlayShadowColors: Colors.black,
+                              overlayShadowSize: 0.5,
+                            );
+                          } else {
+                            List<String> list = ['assets/images/nopic.png'];
+                            List<dynamic> listImages = list
+                                .map((i) => Image(
                                       image:
                                           AssetImage('assets/images/nopic.png'),
                                       fit: BoxFit.cover,
                                     ))
-                              .toList();
-                          return Carousel(
-                            images: listImages,
-                            autoplay: true,
-                            animationDuration: Duration(milliseconds: 1000),
-                            dotSize: 3.0,
-                            dotIncreaseSize: 3.0,
-                            dotColor: Colors.white,
-                            dotIncreasedColor: Color(0xFF07930A),
-                            dotBgColor: Colors.grey[800].withOpacity(0.1),
-                            showIndicator: true,
-                            indicatorBgPadding: 10.0,
-                            boxFit: BoxFit.cover,
-                            radius: Radius.circular(0.0),
-                            overlayShadow: false,
-                            overlayShadowColors: Colors.black,
-                            overlayShadowSize: 0.5,
-                          );
-                        } else {
-                          List<String> list = ['assets/images/nopic.png'];
-                          List<dynamic> listImages = list
-                              .map((i) => Image(
-                                    image:
-                                        AssetImage('assets/images/nopic.png'),
-                                    fit: BoxFit.cover,
-                                  ))
-                              .toList();
-                          return Carousel(
-                            images: listImages,
-                            autoplay: true,
-                            animationDuration: Duration(milliseconds: 300),
-                            dotSize: 3.0,
-                            dotIncreaseSize: 2.0,
-                            dotColor: Colors.white,
-                            dotBgColor: Colors.grey[800].withOpacity(0.1),
-                            showIndicator: true,
-                            indicatorBgPadding: 10.0,
-                            boxFit: BoxFit.cover,
-                            radius: Radius.circular(0.0),
-                            overlayShadow: false,
-                            overlayShadowColors: Colors.black,
-                            overlayShadowSize: 0.5,
-                          );
-                        }
-                        break;
-                    }
-                  },
-                ),
-              ),
-              Center(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(
-                                  right: 10, left: 10, top: 5, bottom: 5),
-                              color: Color(0xFF159B0C),
-                              width: MediaQuery.of(context).size.width,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width / 1.1,
-                                    child: Text(
-                                      widget.topic,
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontFamily: FontStyles().fontFamily,
-                                          fontSize: 16,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        _tabSection(context),
-                      ],
-                    ),
+                                .toList();
+                            return Carousel(
+                              images: listImages,
+                              autoplay: true,
+                              animationDuration: Duration(milliseconds: 300),
+                              dotSize: 3.0,
+                              dotIncreaseSize: 2.0,
+                              dotColor: Colors.white,
+                              dotBgColor: Colors.grey[800].withOpacity(0.1),
+                              showIndicator: true,
+                              indicatorBgPadding: 10.0,
+                              boxFit: BoxFit.cover,
+                              radius: Radius.circular(0.0),
+                              overlayShadow: false,
+                              overlayShadowColors: Colors.black,
+                              overlayShadowSize: 0.5,
+                            );
+                          }
+                          break;
+                      }
+                    },
                   ),
                 ),
-              )
-            ],
+                Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.only(
+                                    right: 10, left: 10, top: 5, bottom: 5),
+                                color: Color(0xFF159B0C),
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width /
+                                          1.1,
+                                      child: Text(
+                                        widget.topic,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontFamily: FontStyles().fontFamily,
+                                            fontSize: 16,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          _tabSection(context),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
