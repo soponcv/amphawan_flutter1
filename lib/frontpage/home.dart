@@ -19,6 +19,7 @@ import 'package:amphawan/view/information/infor_1.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:marquee_flutter/marquee_flutter.dart';
 
 import 'package:http/http.dart' as http;
@@ -315,9 +316,17 @@ class _HomePageState extends State<HomePage> {
                                         Container(
                                           child: Card(
                                             color: Color(0xFF2ECC71),
-                                            child: Icon(
-                                              Icons.rss_feed,
-                                              color: Colors.white,
+                                            child: Container(
+                                              padding: EdgeInsets.only(
+                                                  right: 2,
+                                                  left: 2,
+                                                  top: 2,
+                                                  bottom: 2),
+                                              child: FaIcon(
+                                                FontAwesomeIcons.bullhorn,
+                                                color: Colors.white,
+                                                size: 18,
+                                              ),
                                             ),
                                           ),
                                         ),
