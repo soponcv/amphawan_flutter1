@@ -10,6 +10,7 @@ import 'package:amphawan/view/information/infor_3.dart';
 import 'package:amphawan/view/information/infor_preparation.dart';
 import 'package:amphawan/view/register/mainRegister.dart';
 import 'package:amphawan/view/sign/main_login.dart';
+import 'package:amphawan/view/sign/setting/mainSetting.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -185,7 +186,13 @@ class _ListMenuState extends State<ListMenu> {
                                       ),
                                     ),
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Setting()),
+                                        );
+                                      },
                                       child: Row(
                                         children: <Widget>[
                                           Icon(

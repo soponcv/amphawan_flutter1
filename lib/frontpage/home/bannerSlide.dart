@@ -57,6 +57,7 @@ class _WidgetBannerState extends State<WidgetBanner> {
                       child: CircularProgressIndicator(),
                     );
                   case ConnectionState.active:
+                    return noData();
                     break;
                   case ConnectionState.done:
                     if (snapshot.data != null) {
@@ -67,82 +68,80 @@ class _WidgetBannerState extends State<WidgetBanner> {
                               child: Container(
                                 // margin: EdgeInsets.all(5.0),
                                 child: ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5.0)),
-                                    child: Stack(
-                                      children: <Widget>[
-                                        InkWell(
-                                          onTap: () {
-                                            item.url != ''
-                                                ? Url()
-                                                    .launchInBrowser(item.url)
-                                                : null;
-                                          },
-                                          child: item.display_image != ''
-                                              ? Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.8,
-                                                  child: Image.network(
-                                                    PathAPI().base_url +
-                                                        item.display_image,
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                )
-                                              : Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.8,
-                                                  child: Image(
-                                                    image: AssetImage(
-                                                        'assets/images/nopic.png'),
-                                                    fit: BoxFit.cover,
-                                                  )),
-                                        ),
-                                        // Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                                        Positioned(
-                                          bottom: 0.0,
-                                          left: 0.0,
-                                          right: 0.0,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Color.fromARGB(100, 0, 0, 0),
-                                                  Color.fromARGB(100, 0, 0, 0)
-                                                ],
-                                                begin: Alignment.bottomCenter,
-                                                end: Alignment.topCenter,
-                                              ),
-                                            ),
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5.0,
-                                                horizontal: 10.0),
-                                            child: Text(
-                                              '${item.subject}',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.normal,
-                                                  fontFamily:
-                                                      FontStyles().fontFamily),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5.0)),
+                                  child: Stack(
+                                    children: <Widget>[
+                                      InkWell(
+                                        onTap: () {
+                                          item.url != ''
+                                              ? Url().launchInBrowser(item.url)
+                                              : print('${item.subject}');
+                                        },
+                                        child: item.display_image != ''
+                                            ? Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.8,
+                                                child: Image.network(
+                                                  PathAPI().base_url +
+                                                      item.display_image,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )
+                                            : Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.8,
+                                                child: Image(
+                                                  image: AssetImage(
+                                                      "assets/images/nopic.png"),
+                                                  fit: BoxFit.cover,
+                                                )),
+                                      ),
+                                      // Image.network(item, fit: BoxFit.cover, width: 1000.0),
+                                      Positioned(
+                                        bottom: 0.0,
+                                        left: 0.0,
+                                        right: 0.0,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              colors: [
+                                                Color.fromARGB(100, 0, 0, 0),
+                                                Color.fromARGB(100, 0, 0, 0)
+                                              ],
+                                              begin: Alignment.bottomCenter,
+                                              end: Alignment.topCenter,
                                             ),
                                           ),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 5.0, horizontal: 10.0),
+                                          child: Text(
+                                            '${item.subject}',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.normal,
+                                                fontFamily:
+                                                    FontStyles().fontFamily),
+                                          ),
                                         ),
-                                      ],
-                                    )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           )
                           .toList();
-
                       return Container(
                         child: Column(
                           children: [
                             CarouselSlider(
-                              items: _listImages,
+                              items: _listImages != Null ? _listImages : null,
                               options: CarouselOptions(
                                 autoPlay: false,
                                 aspectRatio: 2.5,

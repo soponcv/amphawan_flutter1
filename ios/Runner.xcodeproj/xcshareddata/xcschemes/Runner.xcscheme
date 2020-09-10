@@ -17,7 +17,7 @@
                BlueprintIdentifier = "97C146ED1CF9000F007C117D"
                BuildableName = "amphawan.app"
                BlueprintName = "Runner"
-               ReferencedContainer = "container:Runner.xcodeproj">
+               ReferencedContainer = "container:&#xe27;&#xe31;&#xe14;&#xe2d;&#xe31;&#xe21;&#xe1e;&#xe27;&#xe31;&#xe19;.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,7 +33,7 @@
             BlueprintIdentifier = "97C146ED1CF9000F007C117D"
             BuildableName = "amphawan.app"
             BlueprintName = "Runner"
-            ReferencedContainer = "container:Runner.xcodeproj">
+            ReferencedContainer = "container:&#xe27;&#xe31;&#xe14;&#xe2d;&#xe31;&#xe21;&#xe1e;&#xe27;&#xe31;&#xe19;.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -59,6 +59,15 @@
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
+            BuildableName = "amphawan.app"
+            BlueprintName = "Runner"
+            ReferencedContainer = "container:&#xe27;&#xe31;&#xe14;&#xe2d;&#xe31;&#xe21;&#xe1e;&#xe27;&#xe31;&#xe19;.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Profile"
@@ -73,7 +82,7 @@
             BlueprintIdentifier = "97C146ED1CF9000F007C117D"
             BuildableName = "amphawan.app"
             BlueprintName = "Runner"
-            ReferencedContainer = "container:Runner.xcodeproj">
+            ReferencedContainer = "container:&#xe27;&#xe31;&#xe14;&#xe2d;&#xe31;&#xe21;&#xe1e;&#xe27;&#xe31;&#xe19;.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
