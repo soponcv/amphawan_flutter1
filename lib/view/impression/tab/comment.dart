@@ -4,6 +4,7 @@ import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
 import 'package:amphawan/system/errorText.dart';
 import 'package:amphawan/system/pathAPI.dart';
+import 'package:amphawan/system/timeTH.dart';
 import 'package:amphawan/view/impression/model/listImpression.dart';
 import 'package:flutter/material.dart';
 
@@ -32,20 +33,46 @@ class _ImCommentState extends State<ImComment> {
   Future<List<ListImpressionComment>> fetchImComment(http.Client client) async {
     final response =
         await client.get(PathAPI().getImpressionComment + widget.uploadKey);
-    print(response.body);
     return parseImComment(response.body);
   }
 
   List<ListImpressionComment> parseImComment(String responseBody) {
-    print(responseBody);
-    if (responseBody != '{"status":"false"}') {
-      final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-
-      return parsed
-          .map<ListImpressionComment>(
-              (json) => ListImpressionComment.fromJson(json))
-          .toList();
+    List parsed1 = jsonDecode(responseBody);
+    List<dynamic> reSetItems = [];
+    for (int i = 0; i < parsed1.length; i++) {
+      if (parsed1[i]['username'] == username) {
+        reSetItems.add({
+          'id': parsed1[i]['id'],
+          'username': parsed1[i]['username'],
+          'name': parsed1[i]['name'],
+          'lastname': parsed1[i]['lastname'],
+          'uploadKey': parsed1[i]['uploadKey'],
+          'description': parsed1[i]['description'],
+          'create_date': parsed1[i]['create_date'],
+          'status': parsed1[i]['status']
+        });
+      } else if (parsed1[i]['username'] != username &&
+          parsed1[i]['status'] == 2) {
+        reSetItems.add({
+          'id': parsed1[i]['id'],
+          'username': parsed1[i]['username'],
+          'name': parsed1[i]['name'],
+          'lastname': parsed1[i]['lastname'],
+          'uploadKey': parsed1[i]['uploadKey'],
+          'description': parsed1[i]['description'],
+          'create_date': parsed1[i]['create_date'],
+          'status': parsed1[i]['status']
+        });
+      }
     }
+
+    final parsed =
+        jsonDecode(jsonEncode(reSetItems)).cast<Map<String, dynamic>>();
+
+    return parsed
+        .map<ListImpressionComment>(
+            (json) => ListImpressionComment.fromJson(json))
+        .toList();
   }
   // end---------------- Get Data From DATABASES
 
@@ -61,7 +88,6 @@ class _ImCommentState extends State<ImComment> {
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
     setState(() {
-      print(body);
       _inputComment.text = '';
     });
   }
@@ -150,6 +176,7 @@ class _ImCommentState extends State<ImComment> {
                 if (snapshot.data != null) {
                   return ImpressionComment(
                     impression: snapshot.data,
+                    username: username,
                   );
                 } else {
                   return noData();
@@ -182,8 +209,11 @@ class _ImCommentState extends State<ImComment> {
 
 class ImpressionComment extends StatelessWidget {
   final List<ListImpressionComment> impression;
+  final String username;
 
-  ImpressionComment({Key key, this.impression}) : super(key: key);
+  ImpressionComment({Key key, this.impression, this.username})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -223,7 +253,9 @@ class ImpressionComment extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Text(impression[index].create_date,
+                          Text(
+                              TimeTH().covertDateShortMonthTime(
+                                  impression[index].create_date),
                               style: TextStyle(
                                   fontFamily: FontStyles().fontFamily,
                                   fontSize: 10,
@@ -242,13 +274,24 @@ class ImpressionComment extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.9,
                         padding: EdgeInsets.only(
                             top: 5, left: 3, right: 3, bottom: 5),
-                        child: Text(
-                          impression[index].description,
-                          style: TextStyle(
-                              fontFamily: FontStyles().fontFamily,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w200),
-                        ),
+                        child: impression[index].status == 2
+                            ? Text(
+                                impression[index].description,
+                                style: TextStyle(
+                                    fontFamily: FontStyles().fontFamily,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w200),
+                              )
+                            : Center(
+                                child: Text(
+                                  '-- รออนุมัติ --',
+                                  style: TextStyle(
+                                      fontFamily: FontStyles().fontFamily,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w200,
+                                      color: Colors.grey[500]),
+                                ),
+                              ),
                       ),
                     ),
                   )

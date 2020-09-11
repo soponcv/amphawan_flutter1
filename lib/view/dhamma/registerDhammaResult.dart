@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amphawan/frontpage/main.dart';
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
@@ -268,7 +269,7 @@ class WidgetSuccess extends StatelessWidget {
               Container(
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: Text(
-                    'หากไม่สามารถเข้าปฏิบัติธรรมตามเวลาที่ลงทะเบียนได้ กรุณายกเลิกล่วงหน้า 2 วัน มิฉะนั้นจะขอสงวนสิทธิ์ การลงทะเบียน 3 เดือน "',
+                    'หากไม่สามารถเข้าปฏิบัติธรรมตามเวลาที่ลงทะเบียนได้ กรุณายกเลิกล่วงหน้า 2 วัน มิฉะนั้นขอสงวนสิทธิ์ การลงทะเบียน 3 เดือน "',
                     style: TextStyle(
                         fontFamily: FontStyles().fontFamily,
                         color: Color(0xFFCC2F06)),
@@ -276,7 +277,14 @@ class WidgetSuccess extends StatelessWidget {
               Padding(padding: EdgeInsets.all(15)),
               RaisedButton(
                 color: Color(0xFF70CD4F),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => frontpage(),
+                    ),
+                  );
+                },
                 child: Text('เรียบร้อย',
                     style: TextStyle(
                         fontFamily: FontStyles().fontFamily,

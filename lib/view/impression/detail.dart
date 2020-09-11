@@ -5,6 +5,7 @@ import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
 import 'package:amphawan/system/errorText.dart';
 import 'package:amphawan/system/pathAPI.dart';
+import 'package:amphawan/system/timeTH.dart';
 import 'package:amphawan/view/impression/model/listImpression.dart';
 import 'package:amphawan/view/impression/tab/comment.dart';
 import 'package:carousel_pro/carousel_pro.dart';
@@ -234,7 +235,7 @@ class _DetailImpressionState extends State<DetailImpression> {
                                 fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            widget.date,
+                            TimeTH().covertDateShortMonthTime(widget.date),
                             style: TextStyle(
                                 fontFamily: FontStyles().fontFamily,
                                 fontSize: 10,
@@ -290,12 +291,13 @@ class _DetailImpressionState extends State<DetailImpression> {
         ),
       ),
       body: Container(
-        height: 1000,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/images/bg/bg.png'), fit: BoxFit.cover),
         ),
         child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
           child: Container(
             child: Column(
               children: <Widget>[

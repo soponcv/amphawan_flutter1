@@ -15,9 +15,7 @@ class MainRegisterTwo extends StatefulWidget {
   final String cid;
   final String txtTitle;
   final String txtDetail;
-  final Map map;
-  MainRegisterTwo(
-      {Key key, @required this.cid, this.txtTitle, this.txtDetail, this.map})
+  MainRegisterTwo({Key key, @required this.cid, this.txtTitle, this.txtDetail})
       : super(key: key);
   @override
   _MainRegisterTwoState createState() => _MainRegisterTwoState();
@@ -108,8 +106,8 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
     inputEmAddress = _inputEmAddress.text;
     inputEmPhone = _inputEmPhone.text;
 
-    _map.addAll(widget.map);
-    _map.addAll({
+    Map _map = ({
+      "username": username,
       "iNameBrother": inputNameBrother,
       "iLastNameBrother": inputLastNameBrother,
       "iNameMather": inputNameMather,
@@ -124,7 +122,57 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
       "iEmPhone": inputEmPhone,
     });
 
-    return _map;
+    var body = json.encode(_map);
+    // return map;
+    postDRegister(http.Client(), body); // Send Data To API(PHP)
+  }
+
+  Future<String> postDRegister(http.Client client, jsonMap) async {
+    final response = await client.post(PathAPI().updateMember2,
+        headers: {"Content-Type": "application/json"}, body: jsonMap);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    var body = json.decode(response.body);
+    if (body['status'] == 'true') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MainRegisterThree(
+                  cid: widget.cid == 'edit' ? '0' : widget.cid,
+                  txtTitle: widget.txtTitle,
+                  txtDetail: detail,
+                )),
+      );
+    } else {
+      _showDialogError();
+    }
+  }
+
+  void _showDialogError() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("! Error",
+              style: TextStyle(
+                  fontFamily: FontStyles().fontFamily,
+                  color: Colors.redAccent)),
+          content: new Text("มีปัญหาในการบันทึกข้อมูล",
+              style: TextStyle(
+                fontFamily: FontStyles().fontFamily,
+              )),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget formResgister() {
@@ -382,17 +430,7 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
                   color: Color(0xFFF3A65A),
                   onPressed: () {
                     // ---------
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MainRegisterThree(
-                          cid: widget.cid,
-                          txtTitle: widget.txtTitle,
-                          txtDetail: detail,
-                          map: _perData(),
-                        ),
-                      ),
-                    );
+                    _perData();
                   },
                   child: Text(
                     'ถัดไป',
@@ -428,7 +466,6 @@ class _MainRegisterTwoState extends State<MainRegisterTwo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: Text(
           widget.txtTitle != '' ? widget.txtTitle : 'ลงทะเบียนปฏิบัติธรรม',
           style: TextStyles().titleBar,

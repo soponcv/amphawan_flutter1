@@ -1,3 +1,4 @@
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Url {
@@ -27,6 +28,19 @@ class Url {
   // </array>
   //   .....
   // </dict>
+
+  // -------------
+  Future<void> download(String url) async {
+    print(download);
+    await FlutterDownloader.enqueue(
+      url: url,
+      savedDir: 'the path of directory where you want to save downloaded files',
+      showNotification:
+          true, // show download progress in status bar (for Android)
+      openFileFromNotification:
+          true, // click on notification to open downloaded file (for Android)
+    );
+  }
 
   Url() : super();
 }

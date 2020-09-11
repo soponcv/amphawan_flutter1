@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amphawan/frontpage/main.dart';
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
@@ -73,7 +74,6 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
   // Make Data to Map
   _perData() {
     Map _map = {};
-    _map.addAll(widget.map);
 
     String inputMeditation = _inputMeditation.text;
     String inputJangwat = _inputJangwat.text;
@@ -83,7 +83,8 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
     String inputAmphawanNumber = _inputAmphawanNumber.text;
     String inputLife = _inputLife.text;
     String inputAllure = _inputAllure.text;
-    _map.addAll({
+    _map = ({
+      "username": username,
       "iMeditation": inputMeditation,
       "iJangwat": inputJangwat,
       "iPractice": inputPractice,
@@ -127,7 +128,7 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
   }
 
   Future<String> postDRegister(http.Client client, jsonMap) async {
-    final response = await client.post(PathAPI().updateMember,
+    final response = await client.post(PathAPI().updateMember3,
         headers: {"Content-Type": "application/json"}, body: jsonMap);
     print('Response status: ${response.statusCode}');
     print('Response body: ${response.body}');
@@ -330,10 +331,10 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
               RaisedButton(
                 color: Colors.grey,
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => SignUp()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => frontpage()),
+                  );
                 },
                 child: Text(
                   'ยกเลิก',
@@ -348,10 +349,6 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
                 color: Color(0xFF75B732),
                 onPressed: () {
                   _perData();
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => SignUp()),
-                  // );
                 },
                 child: Text(
                   widget.cid != '0' ? 'สมัคร' : 'ตกลง',
@@ -386,7 +383,6 @@ class _MainRegisterThreeState extends State<MainRegisterThree> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: Text(
           widget.txtTitle != '' ? widget.txtTitle : 'ลงทะเบียนปฏิบัติธรรม',
           style: TextStyles().titleBar,

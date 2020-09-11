@@ -46,28 +46,34 @@ class ListImpression {
 
 class ListImpressionComment {
   final String id;
+  final String username;
   final String name;
   final String lastname;
   final String uploadKey;
   final String description;
   final String create_date;
+  final int status;
 
   ListImpressionComment(
       {this.id,
+      this.username,
       this.name,
       this.lastname,
       this.uploadKey,
       this.description,
-      this.create_date});
+      this.create_date,
+      this.status});
 
   factory ListImpressionComment.fromJson(Map<String, dynamic> json) {
     return ListImpressionComment(
       id: json['id'] as String,
+      username: json['username'] as String,
       name: json['name'] as String,
       lastname: json['lastname'] as String,
       uploadKey: json['uploadKey'] as String,
       description: json['description'] as String,
       create_date: json['create_date'] as String,
+      status: json['status'] as int,
     );
   }
 }

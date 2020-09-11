@@ -17,7 +17,6 @@ import 'package:amphawan/view/dhamma/dhammaThree.dart';
 import 'package:amphawan/view/dhamma/dhammaTwo.dart';
 import 'package:amphawan/view/information/infor_1.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:marquee_flutter/marquee_flutter.dart';

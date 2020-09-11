@@ -1,6 +1,7 @@
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
+import 'package:amphawan/view/media/readpdf.dart';
 import 'package:flutter/material.dart';
 
 class MediaPage extends StatefulWidget {
@@ -129,7 +130,13 @@ class _MediaPageState extends State<MediaPage> {
                               height: 25,
                               child: RaisedButton(
                                 color: Color(0xFFBEAF4E),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ReadPdf()),
+                                  );
+                                },
                                 child: Text(
                                   'อ่าน',
                                   style: TextStyle(

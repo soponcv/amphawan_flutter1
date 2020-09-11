@@ -5,10 +5,10 @@ import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
 import 'package:amphawan/system/errorText.dart';
 import 'package:amphawan/system/pathAPI.dart';
+import 'package:amphawan/system/timeTH.dart';
 import 'package:amphawan/view/activity/mainActivity.dart';
 import 'package:amphawan/view/activity/model/listEvent.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -176,7 +176,7 @@ class _DeatilActivityState extends State<DeatilActivity> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.7,
+                              width: MediaQuery.of(context).size.width * 0.9,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -187,24 +187,32 @@ class _DeatilActivityState extends State<DeatilActivity> {
                                         fontSize: 18,
                                         color: Color(0xFF07930A)),
                                   ),
-                                  Text(
-                                    widget.location,
-                                    style: TextStyle(
-                                        fontFamily: FontStyles().fontFamily,
-                                        fontSize: 14,
-                                        color: Color(0xFFC4C4C4)),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        widget.location,
+                                        style: TextStyle(
+                                            fontFamily: FontStyles().fontFamily,
+                                            fontSize: 14,
+                                            color: Color(0xFFC4C4C4)),
+                                      ),
+                                      Text(
+                                        'สร้างเมื่อ : ' +
+                                            TimeTH().covertDateShortMonth(
+                                                widget.create_date),
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: FontStyles().fontFamily,
+                                          fontSize: 10,
+                                        ),
+                                      )
+                                    ],
                                   )
                                 ],
                               ),
                             ),
-                            Text(
-                              widget.create_date.substring(0, 10),
-                              style: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: FontStyles().fontFamily,
-                                fontSize: 12,
-                              ),
-                            )
                           ],
                         ),
                         Padding(padding: EdgeInsets.all(10)),

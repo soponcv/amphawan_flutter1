@@ -115,9 +115,57 @@ class _MainRegisterState extends State<MainRegister> {
       "iBJangwat": inputBJangwat,
       "iBZip": inputBZip,
     };
-    // var body = json.encode(map);
-    return map;
-    // postDRegister(http.Client(), body); // Send Data To API(PHP)
+    var body = json.encode(map);
+    // return map;
+    postDRegister(http.Client(), body); // Send Data To API(PHP)
+  }
+
+  Future<String> postDRegister(http.Client client, jsonMap) async {
+    final response = await client.post(PathAPI().updateMember1,
+        headers: {"Content-Type": "application/json"}, body: jsonMap);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    var body = json.decode(response.body);
+    if (body['status'] == 'true') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => MainRegisterTwo(
+                  cid: widget.cid == 'edit' ? '0' : widget.cid,
+                  txtTitle: widget.txtTitle,
+                  txtDetail: detail,
+                )),
+      );
+    } else {
+      _showDialogError();
+    }
+  }
+
+  void _showDialogError() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: new Text("! Error",
+              style: TextStyle(
+                  fontFamily: FontStyles().fontFamily,
+                  color: Colors.redAccent)),
+          content: new Text("มีปัญหาในการบันทึกข้อมูล",
+              style: TextStyle(
+                fontFamily: FontStyles().fontFamily,
+              )),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget formResgister() {
@@ -398,16 +446,7 @@ class _MainRegisterState extends State<MainRegister> {
                 RaisedButton(
                   color: Color(0xFFF3A65A),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MainRegisterTwo(
-                                cid: widget.cid == 'edit' ? '0' : widget.cid,
-                                txtTitle: widget.txtTitle,
-                                txtDetail: detail,
-                                map: _perData(),
-                              )),
-                    );
+                    _perData();
                   },
                   child: Text(
                     'ถัดไป',

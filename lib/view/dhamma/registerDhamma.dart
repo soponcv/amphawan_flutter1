@@ -1,9 +1,16 @@
+import 'dart:convert';
+
+import 'package:amphawan/frontpage/main.dart';
 import 'package:amphawan/styles/app_bar.dart';
 import 'package:amphawan/styles/font_style.dart';
 import 'package:amphawan/styles/text_style.dart';
+import 'package:amphawan/system/pathAPI.dart';
 import 'package:amphawan/view/dhamma/registerDhammaResult.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:http/http.dart' as http;
 
 class RegDhamma extends StatefulWidget {
   final int dhamma_id;
@@ -21,21 +28,83 @@ class _RegDhammaState extends State<RegDhamma> {
       fontWeight: FontWeight.normal);
 
   bool monVall = false;
+
+  Future<String> postDRegister(http.Client client) async {
+    Map _map = {
+      "cid": widget.dhamma_id,
+      "username": widget.username,
+    };
+    var map = json.encode(_map);
+    final response = await client.post(PathAPI().postRegister,
+        headers: {"Content-Type": "application/json"}, body: map);
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+    var body = json.decode(response.body);
+    if (body['status'] == 'true') {
+      setState(() {
+        Fluttertoast.showToast(
+            msg: "ลงทะเบียนสำเร็จ",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      });
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DhammaResult(
+            dhamma_id: widget.dhamma_id,
+            username: widget.username,
+          ),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'ข้อตกลง',
-          style: TextStyles().titleBar,
-        ),
-        shape: CustomShapeBorder(),
-        backgroundColor: Color(0xFFDFF1CD),
-        iconTheme: IconThemeData(
-          color: Color(0xFF4D890E), //change your color here
-        ),
-      ),
+          automaticallyImplyLeading: false,
+          title: Text(
+            'ข้อตกลง',
+            style: TextStyles().titleBar,
+          ),
+          shape: CustomShapeBorder(),
+          backgroundColor: Color(0xFFDFF1CD),
+          iconTheme: IconThemeData(
+            color: Color(0xFF4D890E), //change your color here
+          ),
+          actions: <Widget>[
+            Padding(
+                padding: EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => frontpage(),
+                      ),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.clear,
+                        color: Colors.red,
+                      ),
+                      Text(
+                        'ยกเลิก',
+                        style: TextStyle(
+                            fontFamily: FontStyles().fontFamily,
+                            color: Colors.red),
+                      )
+                    ],
+                  ),
+                )),
+          ]),
       body: Container(
         height: 1000,
         color: Color(0xFFEDF0F8),
@@ -113,25 +182,7 @@ class _RegDhammaState extends State<RegDhamma> {
                                     : Colors.grey,
                                 onPressed: () {
                                   if (monVall) {
-                                    setState(() {
-                                      Fluttertoast.showToast(
-                                          msg: "ลงทะเบียนสำเร็จ",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.BOTTOM,
-                                          timeInSecForIosWeb: 2,
-                                          backgroundColor: Colors.green,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
-                                    });
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => DhammaResult(
-                                          dhamma_id: widget.dhamma_id,
-                                          username: widget.username,
-                                        ),
-                                      ),
-                                    );
+                                    postDRegister(http.Client());
                                   }
                                 },
                                 child: Text('ยืนยัน',

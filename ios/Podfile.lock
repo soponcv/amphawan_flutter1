@@ -65,6 +65,7 @@ PODS:
     - Flutter
   - fluttertoast (0.0.2):
     - Flutter
+    - Toast
   - GoogleDataTransport (7.2.0):
     - nanopb (~> 1.30905.0)
   - GoogleUtilities/AppDelegateSwizzler (6.7.2):
@@ -94,10 +95,13 @@ PODS:
   - nanopb/encode (1.30905.0)
   - path_provider (0.0.1):
     - Flutter
+  - pdf_viewer_plugin (0.0.1):
+    - Flutter
   - PromisesObjC (1.2.10)
   - Protobuf (3.13.0)
   - shared_preferences (0.0.1):
     - Flutter
+  - Toast (4.0.0)
   - url_launcher (0.0.1):
     - Flutter
 
@@ -110,6 +114,7 @@ DEPENDENCIES:
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - pdf_viewer_plugin (from `.symlinks/plugins/pdf_viewer_plugin/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
   - url_launcher (from `.symlinks/plugins/url_launcher/ios`)
 
@@ -131,6 +136,7 @@ SPEC REPOS:
     - nanopb
     - PromisesObjC
     - Protobuf
+    - Toast
 
 EXTERNAL SOURCES:
   firebase_core:
@@ -149,6 +155,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/fluttertoast/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  pdf_viewer_plugin:
+    :path: ".symlinks/plugins/pdf_viewer_plugin/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
   url_launcher:
@@ -171,15 +179,17 @@ SPEC CHECKSUMS:
   flutter_facebook_login: cfb5659f686b1c575ef205c6b6fd20db9679d3c4
   flutter_line_sdk: 5ca4b2a634c15b909d7e4b53f57bb81a21295b63
   flutter_local_notifications: 9e4738ce2471c5af910d961a6b7eadcf57c50186
-  fluttertoast: b644586ef3b16f67fae9a1f8754cef6b2d6b634b
+  fluttertoast: 6122fa75143e992b1d3470f61000f591a798cc58
   GoogleDataTransport: 672fb0ce96fe7f7f31d43672fca62ad2c9c86f7b
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   LineSDKSwift: 9eb384ada43d3a6e18e00bca890d55cfeb0cc774
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  pdf_viewer_plugin: 96ce5d974dd18dd3a5f17a3f50641d178e355434
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher: 6fef411d543ceb26efce54b05a0a40bfd74cbbef
 
 PODFILE CHECKSUM: fe0e1ee7f3d1f7d00b11b474b62dd62134535aea

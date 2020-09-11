@@ -35,23 +35,15 @@ class _LoadRegisterState extends State<LoadRegister> {
       "username": username,
     };
     if (widget.cid != '0') {
-      var map = json.encode(_map);
-      final response = await client.post(PathAPI().postRegister,
-          headers: {"Content-Type": "application/json"}, body: map);
-      print('Response status: ${response.statusCode}');
-      print('Response body: ${response.body}');
-      var body = json.decode(response.body);
-      if (body['status'] == 'true') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => RegDhamma(
-              dhamma_id: int.parse(widget.cid),
-              username: username,
-            ),
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => RegDhamma(
+            dhamma_id: int.parse(widget.cid),
+            username: username,
           ),
-        );
-      }
+        ),
+      );
     } else {
       setState(() {
         Fluttertoast.showToast(

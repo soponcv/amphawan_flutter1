@@ -44,4 +44,22 @@ class TimeTH {
     year = year + 543;
     return year;
   }
+
+  covertDateShortMonthTime(String date) {
+    String y = TimeTH().yearTh(int.parse(date.substring(0, 4))).toString();
+    String m = TimeTH().ShortMonth[int.parse(date.substring(5, 7))];
+    String d = int.parse(date.substring(8, 10)).toString();
+    String t = date.substring(10, 16);
+    String _text = d + ' ' + m + ' ' + y + ' ' + t;
+    return _text;
+  }
+
+  covertDateShortMonth(String date) {
+    date = date.substring(0, 10);
+    String y = TimeTH().yearTh(int.parse(date.substring(0, 4))).toString();
+    String m = TimeTH().ShortMonth[int.parse(date.substring(5, 7))];
+    String d = int.parse(date.substring(8, 10)).toString();
+    String _text = d + ' ' + m + ' ' + y;
+    return _text;
+  }
 }

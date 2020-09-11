@@ -25,7 +25,9 @@ class PathAPI {
   String checkPostMember =
       _base_url + 'member/checkPost'; //เช็ค Username ,Passsword
   String postMember = _base_url + 'member/post';
-  String updateMember = _base_url + 'member/update/';
+  String updateMember1 = _base_url + 'member/update1/';
+  String updateMember2 = _base_url + 'member/update2/';
+  String updateMember3 = _base_url + 'member/update3/';
 
   //ลงทะเบียนปฏิบัติธรรม
   String getAllRegister = _base_url + 'register';
